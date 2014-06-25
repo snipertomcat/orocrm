@@ -1,0 +1,29 @@
+parameters:
+    stc_band.entity.class: Stc\Bundle\BandBundle\Entity\Band
+    stc_band.band.entity.class: Stc\Bundle\BandBundle\Entity\Band
+    stc_band.form.type.band.class: \Stc\Bundle\BandBundle\Form\Type\BandType
+    stc_band.importexport.import.form.model.class: Stc\Bundle\BandBundle\Form\Model\ImportData
+
+services:
+    stc_band.form.type.band:
+            class: %stc_band.form.type.band.class%
+            arguments:
+                - %stc_band.entity.class%
+            tags:
+                - { name: form.type, alias: stc_band }
+
+#    stc_band.form.type.task_api:
+#        class: %acme_task.form.type.task_api.class%
+#        tags:
+#            - { name: form.type, alias: acme_task_api }
+
+#    acme_task.event_listener.datagrid.assigned_tasks_listener:
+#        class: %acme_task.event_listener.datagrid.assigned_tasks_listener.class%
+#        tags:
+#            - { name: kernel.event_listener, event: oro_datagrid.datgrid.build.before.acme_task_assigned_tasks_grid, method: onBuildBefore }
+#            - { name: kernel.event_listener, event: oro_datagrid.datgrid.build.after.acme_task_assigned_tasks_grid, method: onBuildAfter }
+
+#    stc_band.twig.extension:
+#        class: %acme_task.twig.extension.class%
+#        tags:
+#            - { name: twig.extension }

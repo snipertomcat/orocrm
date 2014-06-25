@@ -1,0 +1,160 @@
+datagrid:
+    stc_band_grid:
+        source:
+            type: orm
+            query:
+                select:
+                    - band.id
+                    - band.name
+                    - band.description
+                    - CONCAT(band.billingAddressStreet, ' ', band.billingAddressCity, ' ', band.billingAddressState, ' ', band.billingAddressPostalcode) as address
+                    - band.phoneOffice
+                    - band.website
+                    - band.genre
+                    - band.actType
+                    - band.tributeto
+                    - band.twitter
+                    - band.facebook
+                    - band.youtube
+                    - band.vimeo
+                    - band.myspace
+                    - band.reverbnation
+                    - band.linkdin
+                    - band.googleplus
+                    - band.jjwgMapsLatC
+                    - band.jjwgMapsLngC
+                    - band.createdAt
+                    - band.updatedAt
+                from:
+                    - { table: StcBandBundle:Band , alias: band }
+                where:
+                    and:
+                        - band.deleted <> 0
+#                join:
+#                    left:
+#                        - { join: task.status, alias: status }
+#                        - { join: task.owner, alias: owner }
+#                        - { join: task.assignee, alias: assignee }
+#                        - { join: task.relatedContact, alias: relatedContact }
+        columns:
+            name:
+                label: Band Name
+            description:
+                label: Description
+            billingAddressStreet:
+                label: Billing Address Street
+            billingAddressCity:
+                label: Billing Address City
+            billingAddressState:
+                label: Billing Address State
+            billingAddressPostalcode:
+                label: Billing Address Zip
+            phoneOffice:
+                label: Phone
+            website:
+                label: Website
+            genre:
+                label: Genre
+            actType:
+                label: Act Type
+            tributeto:
+                label: Tribute To
+            twitter:
+                label: Twitter Page
+            facebook:
+                label: Facebook Page
+            youtube:
+                label: Youtube Channel
+            vimeo:
+                label: Vimeo
+            myspace:
+                label: MySpace
+            googleplus:
+                label: Google+ Page
+            reverbnation:
+                label: Reverb Nation
+            linkdin:
+                label: LinkdIn
+            jjwgMapsLatC:
+                label: Location - Lat
+            jjwgMapsLngC:
+                label: Location - Lng
+            createdAt:
+                label: stc.band.created_at.label
+                frontend_type: datetime
+            updatedAt:
+                label: stc.band.updated_at.label
+                frontend_type: datetime
+        properties:
+            id: ~
+            view_link:
+                type: url
+                route: stc_band_update
+                params: [ id ]
+            update_link:
+                type: url
+                route: stc_band_update
+                params: [ id ]
+#            delete_link:
+#                type: url
+#                route: stc_api_delete_band
+#                params: [ id ]
+        sorters:
+            columns:
+                name:
+                    data_name: band.name
+                website:
+                    data_name: band.website
+                createdAt:
+                    data_name: band.createdAt
+                updatedAt:
+                    data_name: band.updatedAt
+            default:
+                createdAt: DESC
+        filters:
+            columns:
+                name:
+                    type: string
+                    data_name: band.name
+#                statusLabel:
+#                    type: entity
+#                    data_name: status.name
+#                    options:
+#                        field_options:
+#                            class: AcmeTaskBundle:TaskStatus
+#                            property: label
+#                assigneeName:
+#                    type: string
+#                    data_name: assigneeName
+#                relatedContactName:
+#                    type: string
+#                    data_name: relatedContactName
+#                ownerName:
+#                    type: string
+#                    data_name: ownerName
+                createdAt:
+                    type: datetime
+                    data_name: band.createdAt
+                updatedAt:
+                    type: datetime
+                    data_name: band.updatedAt
+        actions:
+            view:
+                type: navigate
+                label: View Details
+                icon: user
+                link: view_link
+                rowAction: true
+                acl_resource: stc_band_view
+            update:
+                type: navigate
+                label: Update Band
+                icon: edit
+                link: update_link
+                acl_resource: stc_band_update
+            delete:
+                type: delete
+                label: Delete Band
+                link: delete_link
+                icon: trash
+                acl_resource: stc_band_delete

@@ -1,0 +1,7 @@
+parameters:
+#    stc_vendor.example.class: Stc\Bundle\VendorBundle\Example
+
+services:
+#    stc_vendor.example:
+#        class: %stc_vendor.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

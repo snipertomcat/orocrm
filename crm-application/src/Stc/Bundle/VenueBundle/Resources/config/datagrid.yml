@@ -1,0 +1,126 @@
+datagrid:
+    stc_venue_grid:
+        source:
+            type: orm
+            query:
+                select:
+                    - venue.id
+                    - venue.name
+                    - venue.description
+                    - venue.billingAddressStreet
+                    - venue.billingAddressCity
+                    - venue.billingAddressState
+                    - venue.billingAddressPostalcode
+                    - venue.phoneOffice
+                    - venue.website
+                    - venue.capacity
+                    - venue.venueType
+                    - venue.ageLimit
+                    - venue.avgTicketPrice
+                    - venue.twitter
+                    - venue.facebook
+                    - venue.jjwgMapsLatC
+                    - venue.jjwgMapsLngC
+                    - venue.createdAt
+                    - venue.updatedAt
+                from:
+                    - { table: StcVenueBundle:Venue , alias: venue }
+                where:
+                    and:
+                        - venue.deleted <> 1
+        columns:
+            name:
+                label: Venue Name
+            description:
+                label: Description
+            billingAddressStreet:
+                label: Billing Address Street
+            billingAddressCity:
+                label: Billing Address City
+            billingAddressState:
+                label: Billing Address State
+            billingAddressPostalcode:
+                label: Billing Address Zip
+            phoneOffice:
+                label: Phone
+            website:
+                label: Website
+            capacity:
+                label: Capacity
+            venueType:
+                label: Venue Type
+            ageLimit:
+                label: Age Limit
+            avgTicketPrice:
+                label: Average Ticket Price
+            twitter:
+                label: Twitter Page
+            facebook:
+                label: Facebook Page
+            jjwgMapsLatC:
+                label: Location - Lat
+            jjwgMapsLngC:
+                label: Location - Lng
+            createdAt:
+                label: stc.venue.created_at.label
+                frontend_type: datetime
+            updatedAt:
+                label: stc.venue.updated_at.label
+                frontend_type: datetime
+        properties:
+            id: ~
+            view_link:
+                type: url
+                route: stc_venue_update
+                params: [ id ]
+            update_link:
+                type: url
+                route: stc_venue_update
+                params: [ id ]
+#            delete_link:
+#                type: url
+#                route: stc_api_delete_venue
+#                params: [ id ]
+        sorters:
+            columns:
+                name:
+                    data_name: venue.name
+                website:
+                    data_name: venue.website
+                createdAt:
+                    data_name: venue.createdAt
+                updatedAt:
+                    data_name: venue.updatedAt
+            default:
+                createdAt: DESC
+        filters:
+            columns:
+                name:
+                    type: string
+                    data_name: venue.name
+                createdAt:
+                    type: datetime
+                    data_name: venue.createdAt
+                updatedAt:
+                    type: datetime
+                    data_name: venue.updatedAt
+        actions:
+            view:
+                type: navigate
+                label: View Details
+                icon: user
+                link: view_link
+                rowAction: true
+#                acl_resource: stc_venue_view
+            update:
+                type: navigate
+                label: Update Venue
+                icon: edit
+                link: update_link
+#                acl_resource: stc_venue_update
+            delete:
+                type: delete
+                label: Delete Venue
+                link: delete_link
+                icon: trash
+#                acl_resource: stc_venue_delete

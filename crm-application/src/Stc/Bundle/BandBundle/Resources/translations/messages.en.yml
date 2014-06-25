@@ -1,0 +1,54 @@
+stc:
+    band:
+        block.additional: Additional Info
+        block.general: General Info
+        relatedContact.label: Related Contact
+        saved.message: Band Saved
+        entity.class: band
+        entity_plural_label: Bands
+        stc.band.entity.label: Band
+        actType.label: Act Type
+        entity.label: Band
+        annual_revenue.label: Annual Revenue
+        assignee.label: Assignee
+        billingAddressCity.label: Billing Address City
+        billingAddressState.label: Billing Address State
+        billingAddressPostalcode.label: Billing Address Zip
+        billingAddressStreet.label: Billing Address Street
+        billingAddressCountry.label: Billing Address Country
+        contacts.label: Contacts
+        createdAt.label: Created At
+        deleted.label: Deleted
+        description.label: Description
+        employees.label: Employees
+        facebook.label: Facebook
+        genre.label: Genre
+        googleplus.label: Google+
+        id.label:  ID
+        industry.label: Industry
+        jjwg_maps_lat_c.label: Latitude
+        jjwg_maps_lng_c.label: Longitude
+        linkdin.label: LinkdIn
+        myspace.label: MySpace
+        name.label: Band Name
+        owner.label: Owner
+        ownership.label: Ownership
+        phoneAlternate.label: Alternate Phone
+        phoneFax.label: Fax
+        phoneOffice.label: Office Phone
+        profile_type.label: Profile Type
+        rating.label: Rating
+        reverbnation.label: Reverb Nation
+        shipping_address_city.label: Shipping Address City
+        shipping_address_state.label: Shipping Address State
+        shipping_address_postalcode.label: Shipping Address Zip
+        shipping_address_street.label: Shipping Address Street
+        shipping_address_country.label: Shipping Address Country
+        status.label: Status
+        ticker_symbol.label: Ticker Symbol
+        tributeto.label: Tribute To
+        twitter.label: Twitter
+        updated_at.label: Updated At
+        vimeo.label: Vimeo
+        website.label: Website
+        youtube.label: Youtube

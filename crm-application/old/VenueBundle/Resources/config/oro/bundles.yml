@@ -1,0 +1,2 @@
+bundles:
+    - { name: Stc\Bundle\VenueBundle\StcVenueBundle, priority: 100 }
