@@ -1,0 +1,14 @@
+oro_menu_config:
+    items:
+        venue_tab:
+            label: Venues
+            uri: '#'
+        shortcut_venue_item:
+            label: View Venues
+            route: stc_venue_index
+    tree:
+        application_menu:
+            children:
+                venue_tab:
+                    children:
+                        shortcut_venue_item: ~

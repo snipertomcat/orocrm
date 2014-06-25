@@ -1,0 +1,9 @@
+parameters:
+    stc_bands.form.type.import.class: Stc\Bundle\BandBundle\Form\Type\ImportType
+
+services:
+    stc_bands.form.type.import:
+        class: %stc_bands.form.type.import.class%
+        arguments: [@oro_importexport.processor.registry]
+        tags:
+            - { name: form.type, alias: stc_bands_import }

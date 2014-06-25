@@ -1,0 +1,104 @@
+{% extends 'OroUIBundle:actions:update.html.twig' %}
+
+{% oro_title_set({params : {"%entity.name%": entity.name, "%entityName%": 'stc.performance.entity.label'|trans }}) %}
+
+{% set entityId = form.vars.value.id %}
+
+{% set formAction = entityId ? path('stc_performance_update', { 'id': entityId}) : path('stc_performance_create') %}
+
+{% block navButtons %}
+    {% if resource_granted('stc_performance_update') %}
+        {{ UI.saveAndStayButton() }}
+    {% endif %}
+    {{ UI.saveAndCloseButton() }}
+{% endblock navButtons %}
+
+{% block pageHeader %}
+
+    {% if entityId %}
+        {% set breadcrumbs = {
+        'entity': form.vars.value,
+        'indexPath': path('stc_performance_index'),
+        'indexLabel': 'stc.performance.entity_plural_label'|trans,
+        'entityTitle': form.vars.value.name
+        } %}
+        {{ parent() }}
+    {% else %}
+        {% include 'OroUIBundle::page_title_block.html.twig' %}
+    {% endif %}
+{% endblock pageHeader %}
+
+{% block content_data %}
+    {% set id = 'performance-form' %}
+
+    {% set dataBlocks = [{
+    'title': 'stc.performance.block.general'|trans,
+    'class': 'active',
+    'subblocks': [
+    {
+    'title': '',
+    'data': [
+    form_row(form.name),
+    form_row(form.description),
+    form_row(form.contacts),
+    form_row(form.owner),
+    form_row(form.assignee),
+    form_row(form.performanceType),
+    ]
+    }
+    ]
+    }] %}
+    {% if form.bands.vars.prototype|default is not empty %}
+        <ul id="bands-list" data-prototype="{{ form_widget(form.bands.vars.prototype)|e }}">
+    {% else %}
+        <ul id="bands-list" data-prototype="">
+    {% endif %}
+        {% for bandField in form.bands %}
+            <li>
+                {{ form_errors(bandField) }}
+                {{ form_widget(bandField) }}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="#" id="add-band">Add Additional Bands</a>
+    {# This is required to show extended fields #}
+    {% if form.additional is defined and form.additional.children|length > 0 %}
+        {% set additionalData = [] %}
+        {% for value in form.additional %}
+            {% set additionalData = additionalData|merge([form_row(value)]) %}
+        {% endfor %}
+
+        {% set dataBlocks = dataBlocks|merge([{
+        'title': 'stc.performance.block.additional'|trans,
+        'subblocks': [{
+        'title': '',
+        'useSpan': false,
+        'data' : additionalData
+        }]
+        }] ) %}
+    {% endif %}
+
+    {% set data = {
+    'formErrors': form_errors(form)? form_errors(form) : null,
+    'dataBlocks': dataBlocks,
+    } %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var bandCount = '{{ form.bands|length }}';
+
+        jQuery(document).ready(function() {
+            jQuery('#add-band').click(function() {
+                var bandList = jQuery('#add-band');
+
+                var newWidget = bandList.attr('data-prototype');
+                newWidget = newWidget.replace(/__name/g, bandCount);
+                bandCount++;
+
+                var newLi = jQuery('<li></li>').html(newWidget);
+                newLi.appendTo(jQuery('#bandList'));
+
+                return false;
+            });
+        });
+    </script>
+{% endblock content_data %}

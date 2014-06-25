@@ -1,0 +1,12 @@
+parameters:
+    stc_performance.entity.class: Stc\Bundle\PerformanceBundle\Entity\Performance
+    stc_performance.performance.entity.class: Stc\Bundle\PerformanceBundle\Entity\Performance
+    stc_performance.form.type.performance.class: Stc\Bundle\PerformanceBundle\Form\Type\PerformanceType
+
+services:
+    stc_performance.form.type.performance:
+            class: %stc_performance.form.type.performance.class%
+            arguments:
+                - %stc_performance.entity.class%
+            tags:
+                - { name: form.type, alias: stc_performance }

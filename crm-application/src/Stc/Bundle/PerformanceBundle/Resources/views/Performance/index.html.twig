@@ -1,0 +1,15 @@
+{% extends 'OroUIBundle:actions:index.html.twig' %}
+{% import 'OroUIBundle::macros.html.twig' as UI %}
+
+{% set gridName = 'stc_performance_grid' %}
+
+{% set pageTitle = 'stc.performance.entity_plural_label'|trans %}
+
+{% block navButtons %}
+    {% if resource_granted('stc_performance_create') %}
+        {{ UI.addButton({
+        'path' : path('stc_performance_create'),
+        'entity_label': 'stc.performance.entity.label'|trans
+        }) }}
+    {% endif %}
+{% endblock %}

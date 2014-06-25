@@ -1,0 +1,12 @@
+parameters:
+    stc_venue.entity.class: Stc\Bundle\VenueBundle\Entity\Venue
+    stc_venue.venue.entity.class: Stc\Bundle\VenueBundle\Entity\Venue
+    stc_venue.form.type.venue.class: Stc\Bundle\VenueBundle\Form\Type\VenueType
+
+services:
+    stc_venue.form.type.venue:
+            class: %stc_venue.form.type.venue.class%
+            arguments:
+                - %stc_venue.entity.class%
+            tags:
+                - { name: form.type, alias: stc_venue }

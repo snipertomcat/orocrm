@@ -1,0 +1,2 @@
+bundles:
+    - { name: Stc\Bundle\BandBundle\StcBandBundle, priority: 100 }

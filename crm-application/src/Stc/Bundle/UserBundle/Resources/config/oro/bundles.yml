@@ -1,0 +1,3 @@
+# src/Stc/Bundle/UserBundle/Resources/config/oro/bundles.yml
+bundles:
+    - Stc\Bundle\UserBundle\StcUserBundle

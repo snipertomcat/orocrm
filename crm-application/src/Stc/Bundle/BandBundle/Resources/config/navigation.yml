@@ -1,0 +1,14 @@
+oro_menu_config:
+    items:
+        band_tab:
+            label: Bands
+            uri: '#'
+        shortcut_band_item:
+            label: View Bands
+            route: stc_band_index
+    tree:
+        application_menu:
+            children:
+                band_tab:
+                    children:
+                        shortcut_band_item: ~

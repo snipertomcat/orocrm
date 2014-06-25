@@ -1,0 +1,177 @@
+datagrid:
+    stc_performance_grid:
+        source:
+            type: orm
+            query:
+                select:
+                    - performance.id
+                    - performance.name
+                    - performance.description
+                    - performance.deleted
+                    - performance.profileType
+                    - performance.website
+                    - performance.performanceType
+                    - performance.status
+                    - performance.leadSource
+                    - performance.amount
+                    - performance.amountUsDollar
+                    - performance.closedAt
+                    - performance.nextStep
+                    - performance.salesStage
+                    - performance.probability
+                    - performance.showDate
+                    - performance.performanceDate
+                    - performance.performanceLength
+                    - performance.loadInAt
+                    - performance.performanceEndAt
+                    - performance.mealsIncluded
+                    - performance.performanceFee
+                    - performance.budget
+                    - performance.flightBudget
+                    - performance.rentalCarBudget
+                    - performance.hotelBudget
+                    - performance.estimatedAttendance
+                    - performance.actualAttendance
+                    - performance.postShowComments
+                    - performance.travelComments
+                    - performance.soundCheckAt
+                    - performance.performanceHostStatus
+                    - performance.createdAt
+                    - performance.updatedAt
+                from:
+                    - { table: StcPerformanceBundle:Performance , alias: performance }
+                where:
+                    and:
+                        - performance.deleted <> 1
+        columns:
+            name:
+                label: Performance Name
+            description:
+                label: Description
+            contacts:
+                label: Contacts
+            assignee:
+                label: Assignee
+            owner:
+                label: Owner
+#            venue:
+#                label: Venue
+            deleted:
+                label: Deleted
+            profileType:
+                label: Profile Type
+            website:
+                label: Website
+            performanceType:
+                label: Performance Type
+            status:
+                label: Status
+            leadSource:
+                label: Lead Source
+            amount:
+                label: Amount
+            amountUsDollar:
+                label: Amount US Dollar
+            closedAt:
+                label: Closed At
+            nextStep:
+                label: Next Step
+            salesStage:
+                label: Sales Stage
+            probability:
+                label: Probability
+            showDate:
+                label: Show Date
+            performanceDate:
+                label: Performance Date
+            performanceLength:
+                label: Performance Length
+            loadInAt:
+                label: Load In At
+            performanceEndAt:
+                label: Performance Ends At
+            mealsIncluded:
+                label: Meals Included?
+            performanceFee:
+                label: Performance Fee
+            budget:
+                label: Budget
+            flightBudget:
+                label: Flight Budget
+            rentalCarBudget:
+                label: Rental Car Budget
+            hotelBudget:
+                label: Hotel Budget
+            estimatedAttendance:
+                label: Estimated Attendance
+            actualAttendance:
+                label: Actual Attendance
+            postShowComments:
+                label: Show Comments
+            travelComments:
+                label: Travel Comments
+            soundCheckAt:
+                label: Check At
+            performanceHostStatus:
+                label: Performance Host Status
+            createdAt:
+                label: Created At
+                frontend_type: datetime
+            updatedAt:
+                label: Updated At
+                frontend_type: datetime
+        properties:
+            id: ~
+            view_link:
+                type: url
+                route: stc_performance_update
+                params: [ id ]
+            update_link:
+                type: url
+                route: stc_performance_update
+                params: [ id ]
+#            delete_link:
+#                type: url
+#                route: stc_api_delete_performance
+#                params: [ id ]
+        sorters:
+            columns:
+                name:
+                    data_name: performance.name
+                createdAt:
+                    data_name: performance.createdAt
+                updatedAt:
+                    data_name: performance.updatedAt
+            default:
+                createdAt: DESC
+        filters:
+            columns:
+                name:
+                    type: string
+                    data_name: performance.name
+                createdAt:
+                    type: datetime
+                    data_name: performance.createdAt
+                updatedAt:
+                    type: datetime
+                    data_name: performance.updatedAt
+        actions:
+            view:
+                type: navigate
+                label: View Details
+                icon: user
+                link: view_link
+                rowAction: true
+#                acl_resource: stc_performance_view
+            update:
+                type: navigate
+                label: Update Performance
+                icon: edit
+                link: update_link
+#                acl_resource: stc_performance_update
+            delete:
+                type: delete
+                label: Delete Performance
+                link: delete_link
+                icon: trash
+#                acl_resource: stc_performance_delete

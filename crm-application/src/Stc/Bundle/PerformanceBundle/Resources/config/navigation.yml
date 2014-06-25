@@ -1,0 +1,14 @@
+oro_menu_config:
+    items:
+        performance_tab:
+            label: Performances
+            uri: '#'
+        shortcut_performance_item:
+            label: View Performances
+            route: stc_performance_index
+    tree:
+        application_menu:
+            children:
+                performance_tab:
+                    children:
+                        shortcut_performance_item: ~

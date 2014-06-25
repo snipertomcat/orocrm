@@ -1,0 +1,83 @@
+{% extends 'OroUIBundle:actions:update.html.twig' %}
+
+{% oro_title_set({params : {"%entity.name%": entity.name, "%entityName%": 'stc.venue.entity.label'|trans }}) %}
+
+{% set entityId = form.vars.value.id %}
+
+{% set formAction = entityId ? path('stc_venue_update', { 'id': entityId}) : path('stc_venue_create') %}
+
+{% block navButtons %}
+    {% if resource_granted('stc_venue_update') %}
+        {{ UI.saveAndStayButton() }}
+    {% endif %}
+    {{ UI.saveAndCloseButton() }}
+{% endblock navButtons %}
+
+{% block pageHeader %}
+    {% if entityId %}
+        {% set breadcrumbs = {
+        'entity': form.vars.value,
+        'indexPath': path('stc_venue_index'),
+        'indexLabel': 'stc.venue.entity_plural_label'|trans,
+        'entityTitle': form.vars.value.name
+        } %}
+        {{ parent() }}
+    {% else %}
+        {% include 'OroUIBundle::page_title_block.html.twig' %}
+    {% endif %}
+{% endblock pageHeader %}
+
+{% block content_data %}
+    {% set id = 'venue-form' %}
+
+    {% set dataBlocks = [{
+    'title': 'stc.venue.block.general'|trans,
+    'class': 'active',
+    'subblocks': [
+    {
+    'title': '',
+    'data': [
+    form_row(form.name),
+    form_row(form.description),
+    form_row(form.owner),
+    form_row(form.assignee),
+    form_row(form.billingAddressStreet),
+    form_row(form.billingAddressState),
+    form_row(form.billingAddressCity),
+    form_row(form.billingAddressPostalcode),
+    form_row(form.phoneOffice),
+    form_row(form.website),
+    form_row(form.twitter),
+    form_row(form.facebook),
+    form_row(form.venueType),
+    form_row(form.capacity),
+    form_row(form.ageLimit),
+    form_row(form.avgTicketPrice)
+    ]
+    }
+    ]
+    }] %}
+
+    {# This is required to show extended fields #}
+    {% if form.additional is defined and form.additional.children|length > 0 %}
+        {% set additionalData = [] %}
+        {% for value in form.additional %}
+            {% set additionalData = additionalData|merge([form_row(value)]) %}
+        {% endfor %}
+
+        {% set dataBlocks = dataBlocks|merge([{
+        'title': 'stc.venue.block.additional'|trans,
+        'subblocks': [{
+        'title': '',
+        'useSpan': false,
+        'data' : additionalData
+        }]
+        }] ) %}
+    {% endif %}
+
+    {% set data = {
+    'formErrors': form_errors(form)? form_errors(form) : null,
+    'dataBlocks': dataBlocks,
+    } %}
+    {{ parent() }}
+{% endblock content_data %}
