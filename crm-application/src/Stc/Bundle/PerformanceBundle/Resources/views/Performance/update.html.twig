@@ -1,9 +1,9 @@
 {% extends 'OroUIBundle:actions:update.html.twig' %}
+{% form_theme form with ['OroAddressBundle:Include:fields.html.twig', 'OroFormBundle:Form:fields.html.twig', 'OroTagBundle:Form:fields.html.twig'] %}
 
 {% oro_title_set({params : {"%entity.name%": entity.name, "%entityName%": 'stc.performance.entity.label'|trans }}) %}
 
 {% set entityId = form.vars.value.id %}
-
 {% set formAction = entityId ? path('stc_performance_update', { 'id': entityId}) : path('stc_performance_create') %}
 
 {% block navButtons %}
@@ -40,28 +40,40 @@
     'data': [
     form_row(form.name),
     form_row(form.description),
-    form_row(form.contacts),
     form_row(form.owner),
     form_row(form.assignee),
     form_row(form.performanceType),
+    form_row(form.bands),
+    form_row(form.venue)
     ]
     }
     ]
     }] %}
+    {% if form.contacts is defined%}
+        {% set dataBlocks = dataBlocks|merge([{
+        'title' : 'orocrm.account.contacts.label'|trans,
+        'subblocks': [{
+        'title' : null,
+        'useSpan': false,
+        'data' : [
+        form_widget(form.contacts)]
+        }]
+        }] ) %}
+    {% endif %}
     {% if form.bands.vars.prototype|default is not empty %}
         <ul id="bands-list" data-prototype="{{ form_widget(form.bands.vars.prototype)|e }}">
     {% else %}
         <ul id="bands-list" data-prototype="">
     {% endif %}
-        {% for bandField in form.bands %}
+{#        {% for bandField in form.bands %}
             <li>
                 {{ form_errors(bandField) }}
                 {{ form_widget(bandField) }}
             </li>
-        {% endfor %}
+        {% endfor %}#}
     </ul>
-    <a href="#" id="add-band">Add Additional Bands</a>
-    {# This is required to show extended fields #}
+   {# <a href="#" id="add-band">Add Additional Bands</a>
+    &#123;&#35; This is required to show extended fields &#35;&#125;
     {% if form.additional is defined and form.additional.children|length > 0 %}
         {% set additionalData = [] %}
         {% for value in form.additional %}
@@ -76,14 +88,14 @@
         'data' : additionalData
         }]
         }] ) %}
-    {% endif %}
+    {% endif %}#}
 
     {% set data = {
     'formErrors': form_errors(form)? form_errors(form) : null,
     'dataBlocks': dataBlocks,
     } %}
     {{ parent() }}
-    <script type="text/javascript">
+{#    <script type="text/javascript">
         var bandCount = '{{ form.bands|length }}';
 
         jQuery(document).ready(function() {
@@ -100,5 +112,5 @@
                 return false;
             });
         });
-    </script>
+    </script>#}
 {% endblock content_data %}

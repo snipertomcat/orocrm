@@ -2,9 +2,12 @@
 
 namespace Stc\Bundle\PerformanceBundle\Form\Type;
 
+use Stc\Bundle\VenueBundle\Entity\Venue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+use Oro\Bundle\FormBundle\Form\Type\CollectionType;
 
 class PerformanceType extends AbstractType
 {
@@ -43,32 +46,56 @@ class PerformanceType extends AbstractType
                 )
             )
             ->add(
-                'contacts',
-                'orocrm_contact_select',
-                array(
-                    'required' => 'false',
-                    'label' => 'stc.performance.contacts.label'
-                )
-            )
-            ->add(
                 'assignee',
                 'oro_user_select',
                 array(
+                    'required' => false,
                     'required' => false,
                     'label' => 'stc.performance.assignee.label'
                 )
             )
             ->add(
-                'bands',
-                'collection',
+                'venue',
+                'entity',
                 array(
-                    'type' => 'text',
+                    'label'    => 'Venue',
+                    'class'    => 'StcVenueBundle:Venue',
+                    'property' => 'name',
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => false,
+                )
+            )
+/*            ->add(
+                'venue',
+                'stc_venue',
+                array(
+                    'required' => true,
+                    'label' => 'stc.venue.entity.label'
+                )
+            )*/
+            ->add(
+                'bands',
+                'genemu_jqueryselect2_entity',
+                array(
+                    'class'                   => 'StcBandBundle:Band',
+                    'required'                => false,
+                    'multiple'                => true,
+                    'label'                   => 'Bands',
+                    'configs'                 => ['placeholder' => 'Please Select Bands'],
+                    'property'                => 'name'
+                )
+            )
+/*            ->add(
+                'bands',
+                'oro_multiple_entity',
+                array(
                     'options' => array(
                         'required' => true,
                         'attr' => array('class' => 'well'),
                         'allow_add' => true
                     )
-                ))
+                ))*/
             ->add(
                 'profileType',
                 'text',

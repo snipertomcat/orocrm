@@ -111,7 +111,27 @@ class PerformanceController extends Controller
         $request = $this->getRequest();
         $form = $this->createForm(new PerformanceType(), $performance);
 
-        if ('POST' == $request->getMethod()) {
+        $formHandler = $this->get('stc_performance.form.handler');
+
+        if ($formHandler->handle($form, $request)) {
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                $this->get('translator').trans('stc.performance.saved_message')
+            );
+
+            return $this->get('oro_ui.router')->actionRedirect(
+                array(
+                    'route' => 'stc_performance_update',
+                    'parameters' => array('id' => $performance->getId()),
+                ),
+                array(
+                    'route' => 'stc_performance_view',
+                    'parameters' => array('id' => $performance->getId()),
+                )
+            );
+        }
+
+        /*if ('POST' == $request->getMethod()) {
             $form->submit($request);
             if ($form->isValid()) {
                 $this->getDoctrine()->getManager()->persist($performance);
@@ -133,12 +153,29 @@ class PerformanceController extends Controller
                     )
                 );
             }
-        }
+        }*/
 
         return array(
             'entity' => $performance,
             'form' => $form->createView(),
         );
+    }
+
+    /**
+     * @Route("/info", name="stc_performance_widgets_info")
+     * @Template()
+     * @Acl(
+     * id="stc_performance_info",
+     * type="entity",
+     * class="StcPerformanceBundle:Performance",
+     * permission="VIEW"
+     * )
+     */
+    public function infoAction(Performance $performance)
+    {
+        return [
+            'entity' => $performance
+        ];
     }
 
     /**
