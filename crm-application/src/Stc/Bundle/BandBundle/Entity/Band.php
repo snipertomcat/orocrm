@@ -689,6 +689,13 @@ class Band extends ExtendBand
     protected $jjwgMapsLngC;
 
     /**
+     * @var integer
+     * @ORM\Column(name="performanceCount", type="integer", nullable=true)
+     * @JMS\Type("integer")
+     */
+    protected $performanceCount;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -1818,4 +1825,22 @@ class Band extends ExtendBand
     {
         return $this->jjwgMapsLngC;
     }
+
+    /**
+     * @return int
+     */
+    public function getPerformanceCount()
+    {
+        return $this->performanceCount;
+    }
+
+    /**
+     * @param int $performanceCount
+     */
+    public function addPerformanceCount()
+    {
+        $this->performanceCount++;
+    }
+
+
 }

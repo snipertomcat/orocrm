@@ -12,10 +12,10 @@ use OroCRM\Bundle\ContactBundle\Entity\Contact;
 
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
-
+use Oro\Bundle\TagBundle\Entity\Taggable;
 use Oro\Bundle\DataAuditBundle\Metadata\Annotation as Oro;
 
-use Oro\Bundle\UserBundle\Entity\User;
+use Oro\Bundle\UserBundle\Entity\User as User;
 
 use Stc\Bundle\PerformanceBundle\Model\ExtendPerformance;
 use Stc\Bundle\VenueBundle\Entity\Venue;
@@ -48,536 +48,196 @@ use Symfony\Component\Validator\Constraints\NotIdenticalTo;
  * }
  * )
  */
-class Performance extends ExtendPerformance
+class Performance extends ExtendPerformance implements Taggable
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Type("integer")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
+     * @ORM\Column(type="string", length=255, nullable=true, name="name")
      */
-    protected $name;
+    private $name;
 
     /**
-     * @var \DateTime $created
-     *
-     * @ORM\Column(type="datetime")
-     * @JMS\Type("DateTime")
-     * @ConfigField(
-     * defaultValues={
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime $updated
-     *
      * @ORM\Column(type="datetime", nullable=true)
-     * @JMS\Type("DateTime")
-     * @ConfigField(
-     * defaultValues={
-     * "email"={"available_in_template"=true}
-     * }
-     * )
      */
-    protected $updatedAt;
+    private $createdAt;
 
     /**
-     * @var User
-     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="text", nullable=true, name="description")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $deleted;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true, name="profileType")
+     */
+    private $profileType;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, name="website")
+     */
+    private $website;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true, name="performanceType")
+     */
+    private $performanceType;
+
+    /**
+     * @ORM\Column(type="string", length=25, nullable=true, name="status")
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true, name="leadSource")
+     */
+    private $leadSource;
+
+    /**
+     * @ORM\Column(type="decimal", nullable=true, name="amount")
+     */
+    private $amount;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $closedAt;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true, name="nextStep")
+     */
+    private $nextStep;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true, name="salesStage")
+     */
+    private $salesStage;
+
+    /**
+     * @ORM\Column(type="float", length=100, nullable=true, name="probability")
+     */
+    private $probability;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $venue;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    private $performanceDate;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true, name="performanceLength")
+     */
+    private $performanceLength;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $loadInAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $performanceEndAt;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $mealsIncluded;
+
+    /**
+     * @ORM\Column(type="decimal", nullable=true, name="performanceFee")
+     */
+    private $performanceFee;
+
+    /**
+     * @ORM\Column(type="decimal", nullable=true, name="budget")
+     */
+    private $budget;
+
+    /**
+     * @ORM\Column(type="decimal", nullable=true, name="flightBudget")
+     */
+    private $flightBudget;
+
+    /**
+     * @ORM\Column(type="decimal", nullable=true, name="rentalCarBudget")
+     */
+    private $rentalCarBudget;
+
+    /**
+     * @ORM\Column(type="decimal", nullable=true, name="hotelBudget")
+     */
+    private $hotelBudget;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $estimatedAttendance;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $actualAttendance;
+
+    /**
+     * @ORM\Column(type="blob", nullable=true, name="postShowComments")
+     */
+    private $postShowComments;
+
+    /**
+     * @ORM\Column(type="text", nullable=true, name="travelComments")
+     */
+    private $travelComments;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $soundCheckAt;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true, name="performanceHostStatus")
+     */
+    private $performanceHostStatus;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="assignee_id", referencedColumnName="id", onDelete="SET NULL")
-     * @Oro\Versioned("getUsername")
-     * @JMS\Type("integer")
-     * @JMS\Accessor(getter="getAssigneeId")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
      */
-    protected $assignee;
+    private $assignee;
 
     /**
-     * @var User
-     *
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="SET NULL")
-     * @Oro\Versioned("getUsername")
-     * @JMS\Type("integer")
-     * @JMS\Accessor(getter="getOwnerId")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
+     */
+    private $owner;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Stc\Bundle\BandBundle\Entity\Band")
+     * @ORM\JoinTable(
+     *     name="stc_performance_to_band",
+     *     joinColumns={@ORM\JoinColumn(name="Performance_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="Band_id", referencedColumnName="id")}
      * )
      */
-    protected $owner;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     * @Oro\Versioned
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )+
-     * @JMS\Type("string")
-     */
-    protected $description;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     * @JMS\Type("boolean")
-     */
-    protected $deleted;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="profileType", type="string", length=50, nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $profileType;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="website", type="string", length=255, nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $website;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="performanceType", type="string", length=100, nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $performanceType;
-
-    /**
-     * Contacts storage
-     *
-     * @var Contact[]|ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="OroCRM\Bundle\ContactBundle\Entity\Contact", mappedBy="id")
-     */
-    protected $contacts;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="status", type="string", length=25)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $status;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="leadSource", type="string", length=100, nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $leadSource;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="amount", type="decimal", nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $amount;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="amountUsDollar", type="decimal", nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $amountUsDollar;
-
-    /**
-     * @var \DateTime $closed
-     *
-     * @ORM\Column(type="datetime", nullable=true)
-     * @JMS\Type("DateTime")
-     * @ConfigField(
-     * defaultValues={
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $closedAt;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nextStep", type="string", length=100, nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $nextStep;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="salesStage", type="string", length=100, nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $salesStage;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="probability", type="string", length=100, nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $probability;
-
-    /**
-     * Bands storage
-     *
-     * @var Band[]|ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="Stc\Bundle\BandBundle\Entity\Band", mappedBy="name", cascade={"all"}, orphanRemoval=true)
-     */
-    protected $bands;
-
-    /**
-     * @var Venue
-     *
-     * @ORM\Column(type="integer", nullable=false)
-     * @JMS\Type("integer")
-     * @JMS\Accessor(getter="getVenueId")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $venue;
-
-    /**
-     * @var \DateTime $showDate
-     *
-     * @ORM\Column(type="datetime", nullable=true)
-     * @JMS\Type("DateTime")
-     * @ConfigField(
-     * defaultValues={
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $showDate;
-
-    /**
-     * @var \DateTime $performanceDate
-     *
-     * @ORM\Column(type="datetime", nullable=true)
-     * @JMS\Type("DateTime")
-     * @ConfigField(
-     * defaultValues={
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $performanceDate;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="performanceLength", type="string", length=100, nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $performanceLength;
-
-    /**
-     * @var \DateTime $loadInAt
-     *
-     * @ORM\Column(type="datetime", nullable=true)
-     * @JMS\Type("DateTime")
-     * @ConfigField(
-     * defaultValues={
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $loadInAt;
-
-    /**
-     * @var \DateTime $perfomanceEndAt
-     *
-     * @ORM\Column(type="datetime", nullable=true)
-     * @JMS\Type("DateTime")
-     * @ConfigField(
-     * defaultValues={
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $performanceEndAt;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     * @JMS\Type("boolean")
-     */
-    protected $mealsIncluded;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="performanceFee", type="decimal", nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $performanceFee;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="budget", type="decimal", nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $budget;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="flightBudget", type="decimal", nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $flightBudget;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="rentalCarBudget", type="decimal", nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $rentalCarBudget;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="hotelBudget", type="decimal", nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $hotelBudget;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(type="integer")
-     * @JMS\Type("integer")
-     */
-    protected $estimatedAttendance;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $actualAttendance;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="postShowComments", type="text", nullable=true)
-     * @Oro\Versioned
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )+
-     * @JMS\Type("string")
-     */
-    protected $postShowComments;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="travelComments", type="text", nullable=true)
-     * @Oro\Versioned
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )+
-     * @JMS\Type("string")
-     */
-    protected $travelComments;
-
-    /**
-     * @var \DateTime $soundCheckAt
-     *
-     * @ORM\Column(type="datetime", nullable=true)
-     * @JMS\Type("DateTime")
-     * @ConfigField(
-     * defaultValues={
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $soundCheckAt;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="performanceHostStatus", type="string", length=100, nullable=true)
-     * @Oro\Versioned
-     * @JMS\Type("string")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
-     */
-    protected $performanceHostStatus;
+    private $bands;
 
     /**
      * Constructor
@@ -585,6 +245,7 @@ class Performance extends ExtendPerformance
     public function __construct()
     {
         $this->contacts = new ArrayCollection();
+        $this->bands = new ArrayCollection();
     }
 
     /**
@@ -620,22 +281,6 @@ class Performance extends ExtendPerformance
     }
 
     /**
-     * @return string
-     */
-    public function getAmountUsDollar()
-    {
-        return $this->amountUsDollar;
-    }
-
-    /**
-     * @param string $amountUsDollar
-     */
-    public function setAmountUsDollar($amountUsDollar)
-    {
-        $this->amountUsDollar = $amountUsDollar;
-    }
-
-    /**
      * @return User
      */
     public function getAssignee()
@@ -666,6 +311,24 @@ class Performance extends ExtendPerformance
     public function setBands($bands)
     {
         $this->bands = $bands;
+        $iterator = $this->bands->getIterator();
+        foreach ($iterator as $band) {
+            $this->addBand($band);
+        }
+    }
+
+    public function addBand($band)
+    {
+        if (!$this->bands->contains($band)) {
+            $this->bands->add($band);
+        }
+    }
+
+    public function removeBand($band)
+    {
+        if ($this->bands->contains($band)) {
+            $this->bands->removeElement($band);
+        }
     }
 
     /**
@@ -697,6 +360,11 @@ class Performance extends ExtendPerformance
      */
     public function setClosedAt($closedAt)
     {
+        if (!$closedAt instanceof \DateTime) {
+            $closedAt = new \DateTime($closedAt);
+        } else {
+            $closedAt = $closedAt->setTimezone(new \DateTimeZone('America/Los_Angeles'));
+        }
         $this->closedAt = $closedAt;
     }
 
@@ -751,6 +419,9 @@ class Performance extends ExtendPerformance
      */
     public function setCreatedAt($createdAt)
     {
+        //$createdAtString = $createdAt->format('Y-m-d');
+        //$datetime = $createdAt->createFromFormat('Y-m-d',$createdAtString,new \DateTimeZone('America/Los_Angeles'));
+        $createdAt = $createdAt->setTimezone(new \DateTimeZone('America/Los_Angeles'));
         $this->createdAt = $createdAt;
     }
 
@@ -879,6 +550,11 @@ class Performance extends ExtendPerformance
      */
     public function setLoadInAt($loadInAt)
     {
+        if (!$loadInAt instanceof \DateTime) {
+            $loadInAt = new \DateTime($loadInAt);
+        } else {
+            $loadInAt = $loadInAt->setTimezone(new \DateTimeZone('America/Los_Angeles'));
+        }
         $this->loadInAt = $loadInAt;
     }
 
@@ -959,7 +635,17 @@ class Performance extends ExtendPerformance
      */
     public function setPerformanceDate($performanceDate)
     {
-        $this->performanceDate = $performanceDate;
+        //$datetime = $performanceDate->createFromFormat('Y-m-d',$performanceDate->('string'),new \DateTimeZone('America/Los_Angeles'));
+        if (null !== $performanceDate) {
+            if (!$performanceDate instanceof \DateTime) {
+                $performanceDate = new \DateTime($performanceDate);
+            } else {
+                $performanceDate = $performanceDate->setTimezone(new \DateTimeZone('America/Los_Angeles'));
+            }
+            $this->performanceDate = $performanceDate;
+        } else {
+            $this->performanceDate = new \DateTime('now');
+        }
     }
 
     /**
@@ -975,6 +661,11 @@ class Performance extends ExtendPerformance
      */
     public function setPerformanceEndAt($performanceEndAt)
     {
+        if (!$performanceEndAt instanceof \DateTime) {
+            $performanceEndAt = new \DateTime($performanceEndAt);
+        } else {
+            $performanceEndAt = $performanceEndAt->setTimezone(new \DateTimeZone('America/Los_Angeles'));
+        }
         $this->performanceEndAt = $performanceEndAt;
     }
 
@@ -1125,22 +816,6 @@ class Performance extends ExtendPerformance
     /**
      * @return \DateTime
      */
-    public function getShowDate()
-    {
-        return $this->showDate;
-    }
-
-    /**
-     * @param \DateTime $showDate
-     */
-    public function setShowDate($showDate)
-    {
-        $this->showDate = $showDate;
-    }
-
-    /**
-     * @return \DateTime
-     */
     public function getSoundCheckAt()
     {
         return $this->soundCheckAt;
@@ -1151,6 +826,12 @@ class Performance extends ExtendPerformance
      */
     public function setSoundCheckAt($soundCheckAt)
     {
+        //$datetime = $soundCheckAt->createFromFormat('Y-m-d',$soundCheckAt->format('strintg'),new \DateTimeZone('America/Los_Angeles'));
+        if (!$soundCheckAt instanceof \DateTime) {
+            $soundCheckAt = new \DateTime($soundCheckAt);
+        } else {
+            $soundCheckAt = $soundCheckAt->setTimezone(new \DateTimeZone('America/Los_Angeles'));
+        }
         $this->soundCheckAt = $soundCheckAt;
     }
 
@@ -1261,6 +942,64 @@ class Performance extends ExtendPerformance
     public function getVenueId()
     {
         return $this->getVenue()->getId();
+    }
+
+    /*
+     * @return ArrayCollection
+     */
+    public function getTags()
+    {
+        if (null === $this->tags) {
+            $this->tags = new ArrayCollection();
+        }
+
+        return $this->tags;
+    }
+
+    /*
+    * @param $tags
+    * @return Performance
+    */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTaggableId()
+    {
+        return $this->getId();
+    }
+
+    /**
+     * Pre persist event handler
+     *
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        //$datetime = (new \DateTime)->createFromFormat('Y-m-d','now',new \DateTimeZone('America/Los_Angeles'));
+        $datetime = new \DateTime('now');
+        $datetime = $datetime->setTimezone(new \DateTimeZone('America/Los_Angeles'));
+        $this->createdAt = $datetime;
+        $this->updatedAt = $datetime;
+    }
+
+    /**
+     * Pre update event handler
+     *
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+        //$datetime = (new \DateTime)->createFromFormat('Y-m-d','now',new \DateTimeZone('America/Los_Angeles'));
+        $datetime = new \DateTime('now');
+        $datetime = $datetime->setTimezone(new \DateTimeZone('America/Los_Angeles'));
+        $this->updatedAt = $datetime;
     }
 
 }

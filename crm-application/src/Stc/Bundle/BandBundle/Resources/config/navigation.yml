@@ -6,9 +6,13 @@ oro_menu_config:
         shortcut_band_item:
             label: View Bands
             route: stc_band_index
+        shortcut_band_create:
+            label: Create Band
+            route: stc_band_create
     tree:
         application_menu:
             children:
                 band_tab:
                     children:
                         shortcut_band_item: ~
+                        shortcut_band_create: ~

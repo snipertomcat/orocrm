@@ -1329,4 +1329,9 @@ class Venue extends ExtendVenue
         }
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
 }

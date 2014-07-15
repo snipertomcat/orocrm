@@ -44,73 +44,86 @@
     form_row(form.assignee),
     form_row(form.performanceType),
     form_row(form.bands),
-    form_row(form.venue)
+    form_row(form.venue),
+    form_row(form.mealsIncluded),
+    form_row(form.estimatedAttendance),
+    form_row(form.actualAttendance)
     ]
     }
     ]
     }] %}
-    {% if form.contacts is defined%}
+    {% if form.contacts is defined %}
         {% set dataBlocks = dataBlocks|merge([{
-        'title' : 'orocrm.account.contacts.label'|trans,
-        'subblocks': [{
-        'title' : null,
-        'useSpan': false,
-        'data' : [
-        form_widget(form.contacts)]
-        }]
-        }] ) %}
+            'title' : 'orocrm.account.contacts.label'|trans,
+            'subblocks': [{
+                'title' : null,
+                'useSpan': false,
+                'data' : [
+                    form_widget(form.contacts)]
+                }]
+        }] )
+        %}
     {% endif %}
-    {% if form.bands.vars.prototype|default is not empty %}
-        <ul id="bands-list" data-prototype="{{ form_widget(form.bands.vars.prototype)|e }}">
-    {% else %}
-        <ul id="bands-list" data-prototype="">
-    {% endif %}
-{#        {% for bandField in form.bands %}
-            <li>
-                {{ form_errors(bandField) }}
-                {{ form_widget(bandField) }}
-            </li>
-        {% endfor %}#}
-    </ul>
-   {# <a href="#" id="add-band">Add Additional Bands</a>
-    &#123;&#35; This is required to show extended fields &#35;&#125;
-    {% if form.additional is defined and form.additional.children|length > 0 %}
-        {% set additionalData = [] %}
-        {% for value in form.additional %}
-            {% set additionalData = additionalData|merge([form_row(value)]) %}
-        {% endfor %}
-
-        {% set dataBlocks = dataBlocks|merge([{
-        'title': 'stc.performance.block.additional'|trans,
-        'subblocks': [{
-        'title': '',
-        'useSpan': false,
-        'data' : additionalData
+    {% set dataBlocks = dataBlocks|merge([{
+        'title' : 'stc.performance.cost_title.label'|trans,
+        'subblocks' : [{
+            'title' : null,
+            'useSpan' : false,
+            'data' : [
+                form_row(form.budget),
+                form_row(form.performanceFee),
+                form_row(form.flightBudget),
+                form_row(form.rentalCarBudget),
+                form_row(form.hotelBudget)
+            ]
         }]
-        }] ) %}
-    {% endif %}#}
+    }] )
+    %}
+    {% set dataBlocks = dataBlocks|merge([{
+        'title' : 'stc.performance.comments_title.label'|trans,
+        'subblocks' : [{
+            'title' : null,
+            'useSpan' : false,
+            'data' : [
+                form_row(form.postShowComments),
+                form_row(form.travelComments),
+                form_row(form.performanceHostStatus)
+            ]
+        }]
+    }]) %}
+    {% set dataBlocks = dataBlocks|merge([{
+        'title' : 'stc.performance.date_time_title.label'|trans,
+        'subblocks' : [{
+            'title' : null,
+            'useSpan' : false,
+            'data' : [
+                form_row(form.performanceDate),
+                form_row(form.soundCheckAt),
+                form_row(form.performanceEndAt),
+                form_row(form.loadInAt),
+                form_row(form.performanceLength)
+            ]
+        }]
+    }]) %}
+    {% set dataBlocks = dataBlocks|merge([{
+        'title' : 'stc.performance.sales_data_title.label'|trans,
+        'subblocks' : [{
+            'title' : null,
+            'useSpan' : false,
+            'data' : [
+                form_row(form.probability),
+                form_row(form.amount),
+                form_row(form.salesStage),
+                form_row(form.nextStep),
+                form_row(form.closedAt),
+                form_row(form.leadSource)
+            ]
+        }]
+    }]) %}
 
     {% set data = {
     'formErrors': form_errors(form)? form_errors(form) : null,
     'dataBlocks': dataBlocks,
     } %}
     {{ parent() }}
-{#    <script type="text/javascript">
-        var bandCount = '{{ form.bands|length }}';
-
-        jQuery(document).ready(function() {
-            jQuery('#add-band').click(function() {
-                var bandList = jQuery('#add-band');
-
-                var newWidget = bandList.attr('data-prototype');
-                newWidget = newWidget.replace(/__name/g, bandCount);
-                bandCount++;
-
-                var newLi = jQuery('<li></li>').html(newWidget);
-                newLi.appendTo(jQuery('#bandList'));
-
-                return false;
-            });
-        });
-    </script>#}
 {% endblock content_data %}

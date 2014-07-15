@@ -116,6 +116,9 @@ datagrid:
                 name:
                     type: string
                     data_name: band.name
+                genre:
+                    type: string
+                    data_name: band.genre
 #                statusLabel:
 #                    type: entity
 #                    data_name: status.name
