@@ -14,12 +14,10 @@ datagrid:
                     - performance.status
                     - performance.leadSource
                     - performance.amount
-                    - performance.amountUsDollar
                     - performance.closedAt
                     - performance.nextStep
                     - performance.salesStage
                     - performance.probability
-                    - performance.showDate
                     - performance.performanceDate
                     - performance.performanceLength
                     - performance.loadInAt
@@ -54,8 +52,8 @@ datagrid:
                 label: Assignee
             owner:
                 label: Owner
-#            venue:
-#                label: Venue
+            venue:
+                label: Venue
             deleted:
                 label: Deleted
             profileType:
@@ -74,6 +72,7 @@ datagrid:
                 label: Amount US Dollar
             closedAt:
                 label: Closed At
+                frontend_type: datetime
             nextStep:
                 label: Next Step
             salesStage:
@@ -82,14 +81,18 @@ datagrid:
                 label: Probability
             showDate:
                 label: Show Date
+                frontend_type: datetime
             performanceDate:
                 label: Performance Date
+                frontend_type: datetime
             performanceLength:
                 label: Performance Length
             loadInAt:
                 label: Load In At
+                frontend_type: datetime
             performanceEndAt:
                 label: Performance Ends At
+                frontend_type: datetime
             mealsIncluded:
                 label: Meals Included?
             performanceFee:
@@ -112,6 +115,7 @@ datagrid:
                 label: Travel Comments
             soundCheckAt:
                 label: Check At
+                frontend_type: datetime
             performanceHostStatus:
                 label: Performance Host Status
             createdAt:

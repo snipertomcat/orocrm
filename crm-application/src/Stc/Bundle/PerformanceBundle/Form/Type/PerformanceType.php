@@ -50,9 +50,55 @@ class PerformanceType extends AbstractType
                 'oro_user_select',
                 array(
                     'required' => false,
-                    'required' => false,
                     'label' => 'stc.performance.assignee.label'
                 )
+            )
+            ->add(
+                'leadSource',
+                'text',
+                array(
+                    'label' => 'stc.performance.leadSource.label',
+                    'required' => false
+                )
+            )
+            ->add(
+                'closedAt',
+                'oro_datetime',
+                array(
+                    'label' => 'stc.performance.closedAt.label',
+                    'required' => false
+                )
+            )
+            ->add(
+                'probability',
+                'percent',
+                [
+                    'label' => 'stc.performance.probability.label',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'salesStage',
+                'choice',
+                [
+                    'label' => 'stc.performance.salesStage.label',
+                    'required' => true,
+                    'choices' => [
+                        'prospecting' => 'Prospecting',
+                        'hot' => 'Hot',
+                        'cold' => 'Cold',
+                        'warm' => 'Warm',
+                        'sold' => 'Sold'
+                    ]
+                ]
+            )
+            ->add(
+                'nextStep',
+                'text',
+                [
+                    'label' => 'stc.performance.nextStep.label',
+                    'required' => false,
+                ]
             )
             ->add(
                 'venue',
@@ -63,39 +109,22 @@ class PerformanceType extends AbstractType
                     'property' => 'name',
                     'multiple' => false,
                     'expanded' => false,
-                    'required' => false,
+                    'required' => true,
                 )
             )
-/*            ->add(
-                'venue',
-                'stc_venue',
-                array(
-                    'required' => true,
-                    'label' => 'stc.venue.entity.label'
-                )
-            )*/
             ->add(
                 'bands',
                 'genemu_jqueryselect2_entity',
                 array(
                     'class'                   => 'StcBandBundle:Band',
-                    'required'                => false,
+                    'required'                => true,
                     'multiple'                => true,
                     'label'                   => 'Bands',
                     'configs'                 => ['placeholder' => 'Please Select Bands'],
-                    'property'                => 'name'
+                    'property'                => 'name',
+                    'by_reference'            => false
                 )
             )
-/*            ->add(
-                'bands',
-                'oro_multiple_entity',
-                array(
-                    'options' => array(
-                        'required' => true,
-                        'attr' => array('class' => 'well'),
-                        'allow_add' => true
-                    )
-                ))*/
             ->add(
                 'profileType',
                 'text',
@@ -111,6 +140,152 @@ class PerformanceType extends AbstractType
                     'label' => 'stc.performance.performanceType.label',
                     'required' => false,
                 )
+            )
+            ->add(
+                'mealsIncluded',
+                'choice',
+                array(
+                    'label' => 'stc.performance.mealsIncluded.label',
+                    'required' => false,
+                    'max_length' => 1,
+                    'choices' => [
+                        0 => 'No',
+                        1 => 'Yes'
+                    ]
+                )
+            )
+            ->add(
+                'amount',
+                'money',
+                [
+                    'label' => 'stc.performance.amount.label',
+                    'required' => false,
+                    'currency' => 'USD'
+                ]
+            )
+            ->add(
+                'performanceFee',
+                'money',
+                [
+                    'label' => 'stc.performance.performanceFee.label',
+                    'required' => false,
+                    'currency' => 'USD'
+                ]
+            )
+            ->add(
+                'budget',
+                'money',
+                [
+                    'label' => 'stc.performance.budget.label',
+                    'required' => false,
+                    'currency' => 'USD'
+                ]
+            )
+            ->add(
+                'flightBudget',
+                'money',
+                [
+                    'label' => 'stc.performance.flightBudget.label',
+                    'required' => false,
+                    'currency' => 'USD'
+                ]
+            )
+            ->add(
+                'rentalCarBudget',
+                'money',
+                [
+                    'label' => 'stc.performance.rentalCarBudget.label',
+                    'required' => false,
+                    'currency' => 'USD'
+                ]
+            )
+            ->add('hotelBudget',
+                'money',
+                [
+                    'label' => 'stc.performance.hotelBudget.label',
+                    'required' => false,
+                    'currency' => 'USD'
+                ]
+            )
+            ->add(
+                'estimatedAttendance',
+                'number',
+                [
+                    'label' => 'stc.performance.estimatedAttendance.label',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'actualAttendance',
+                'number',
+                [
+                    'label' => 'stc.performance.actualAttendance.label',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'postShowComments',
+                'textarea',
+                [
+                    'label' => 'stc.performance.postShowComments.label',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'travelComments',
+                'textarea',
+                [
+                    'label' => 'stc.performance.travelComments.label',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'soundCheckAt',
+                'oro_datetime',
+                [
+                    'label' => 'stc.performance.soundCheckAt.label',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'performanceEndAt',
+                'oro_datetime',
+                [
+                    'label' => 'stc.performance.performanceEndAt.label',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'loadInAt',
+                'oro_datetime',
+                [
+                    'label' => 'stc.performance.loadInAt.label',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'performanceDate',
+                'oro_datetime',
+                [
+                    'label' => 'stc.performance.performanceDate.label',
+                    'required' => true
+                ]
+            )
+            ->add(
+                'performanceLength',
+                'number',
+                [
+                    'label' => 'stc.performance.performanceLength.label',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'performanceHostStatus',
+                'text',
+                [
+                    'label' => 'stc.performance.performanceHostStatus.label',
+                    'required' => false
+                ]
             )
             ->add(
                 'status',

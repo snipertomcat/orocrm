@@ -1,6 +1,34 @@
 stc:
     performance:
+        saved_message: Performance Saved Successfully
+        mealsIncluded.label: Meals Included
+        performanceFee.label: Performance Fee
+        budget.label: Budget
+        budget.plural_label: Budgets
+        flightBudget.label: Flight Budget
+        rentalCarBudget.label: Rental Car Budget
+        actualAttendance.label: Actual Attendance
+        estimatedAttendance.label: Estimated Attendance
+        postShowComments.label: Post Show Comments
+        comments_title.label: Notes & Comments
+        travelComments.label: Travel Comments
+        soundCheckAt.label: Sound Check Time
+        hotelBudget.label: Hotel Budget
+        cost_title.label: Budgets & Pricing
+        date_time_title.label: Dates & Times
+        performanceHostStatus.label: Host Status
+        performanceEndAt.label: Performance End Time
+        loadInAt.label: Load-In Time
+        performanceLength.label: Performance Length (Hours)
+        performanceDate.label: Date of Show
         performanceType.label: Performance Type
+        probability.label: Probability
+        sales_data_title.label: Sales Data
+        salesStage.label: Sales Stage
+        amount.label: Total Amount of Contract
+        nextStep.label: Next Step
+        closedAt.label: Sale Closed At
+        leadSource.label: Lead Source
         capacity.label: Capacity
         ageLimit.label: Age Limit
         avgTicketPrice.label: Average Ticket Price

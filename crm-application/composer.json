@@ -16,7 +16,7 @@
     ],
     "require": {
         "oro/platform": "*",
-        "oro/crm": "dev-master",
+        "oro/crm": "*",
         "phpmd/phpmd": "1.4.*"
     },
     "scripts": {

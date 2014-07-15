@@ -2,6 +2,7 @@
 
 namespace Stc\Bundle\PerformanceBundle\Controller;
 
+use Stc\Bundle\PerformanceBundle\Form\Handler\PerformanceHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -15,6 +16,7 @@ use Oro\Bundle\UserBundle\Entity\User;
 use Stc\Bundle\PerformanceBundle\Entity\Performance;
 
 use Stc\Bundle\PerformanceBundle\Form\Type\PerformanceType;
+use Zend\Code\Reflection\DocBlock\TagManager;
 
 
 /**
@@ -110,8 +112,9 @@ class PerformanceController extends Controller
     {
         $request = $this->getRequest();
         $form = $this->createForm(new PerformanceType(), $performance);
-
         $formHandler = $this->get('stc_performance.form.handler');
+
+        /*$formHandler = $this->get('stc_performance.form.handler');
 
         if ($formHandler->handle($form, $request)) {
             $this->get('session')->getFlashBag()->add(
@@ -129,13 +132,14 @@ class PerformanceController extends Controller
                     'parameters' => array('id' => $performance->getId()),
                 )
             );
-        }
+        }*/
 
-        /*if ('POST' == $request->getMethod()) {
-            $form->submit($request);
-            if ($form->isValid()) {
-                $this->getDoctrine()->getManager()->persist($performance);
-                $this->getDoctrine()->getManager()->flush();
+        if ('POST' === $request->getMethod()) {
+            $form->setData($performance);
+            if ($formHandler->handle($performance)) {
+                //handled in form handler:
+                //$this->getDoctrine()->getManager()->persist($performance);
+                //$this->getDoctrine()->getManager()->flush();
 
                 $this->get('session')->getFlashBag()->add(
                     'success',
@@ -153,7 +157,7 @@ class PerformanceController extends Controller
                     )
                 );
             }
-        }*/
+        }
 
         return array(
             'entity' => $performance,

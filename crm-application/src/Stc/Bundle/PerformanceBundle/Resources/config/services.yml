@@ -3,20 +3,26 @@ parameters:
     stc_performance.performance.entity.class: Stc\Bundle\PerformanceBundle\Entity\Performance
     stc_performance.form.type.performance.class: Stc\Bundle\PerformanceBundle\Form\Type\PerformanceType
     stc_performance.form.handler.class: Stc\Bundle\PerformanceBundle\Form\Handler\PerformanceHandler
-    stc_performance.data.manager.class: Stc\Bundle\PerformanceBundle\Entity\PerformanceManager
 
 services:
     stc_performance.form.type.performance:
-            class: %stc_performance.form.type.performance.class%
-            arguments:
-                - %stc_performance.entity.class%
-            tags:
-                - { name: form.type, alias: stc_performance }
+        class: %stc_performance.form.type.performance.class%
+        arguments:
+            - %stc_performance.entity.class%
+        tags:
+            - { name: form.type, alias: stc_performance }
     stc_performance.form.handler:
-            class: %stc_performance.form.handler.class%
-            arguments:
-                - @stc_performance.data.manager
-    stc_performance.data.manager:
-            class: %stc_performance.data.manager.class%
-            arguments:
-                - @doctrine.orm.entity_manager
+        class: %stc_performance.form.handler.class%
+        scope: request
+        arguments:
+            - @stc_performance.form
+            - @request
+            - @doctrine.orm.entity_manager
+            - @oro_tag.tag.manager
+    stc_performance.form:
+        class: Symfony\Component\Form\Form
+        factory_method: createNamed
+        factory_service: form.factory
+        arguments:
+            - "stc_performance"
+            - "stc_performance"

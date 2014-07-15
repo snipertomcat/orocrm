@@ -22,3 +22,5 @@ build/
 *~
 
 /app/SymfonyRequirements.php
+old
+cache
