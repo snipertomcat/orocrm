@@ -95,9 +95,6 @@ class PerformanceHandler
 
 
         } else {
-            //print_r($this->form->all());
-            print_r($this->form->getErrors());
-            print_r($this->form->getExtraData());
             exit;
         }
 

@@ -16,8 +16,7 @@ services:
     stc_band.importexport.processor.import_band:
         parent: oro_importexport.processor.import_abstract
         calls:
-            - [setStrategy,
-                [@stc_band.importexport.strategy.import.band.add_or_replace]]
+            - [setStrategy, [@stc_band.importexport.strategy.import.band.add_or_replace]]
         tags:
             - { name: oro_importexport.processor, type: import, entity:
             %stc_band.band.entity.class%, alias: stc_band.add_or_replace_band }
