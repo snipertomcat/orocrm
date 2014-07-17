@@ -10,12 +10,6 @@ class ContractGenerator
 
     protected $template;
 
-    protected $performance;
-
-    protected $bands;
-
-    protected $venue;
-
     protected $multiBand = false;
 
     protected $travel = false;
@@ -23,21 +17,20 @@ class ContractGenerator
     public function __construct(Contract $contract)
     {
         $this->contract = $contract;
-        $this->performance = $contract->getPerformance();
-        $this->extractVenueDetails();
-        $this->extractBandDetails();
+        $this->extractDataValues();
     }
 
-    private function extractVenueDetails()
+    private function extractDataValues()
     {
-        $this->venue = $this->performance->getBands();
+        $this->travel = $this->contract->getTravel();
     }
 
-    private function extractBandDetails()
+    public function selectTemplate()
     {
-        $this->bands = $this->performance->getVenue();
-        if (count($this->bands) > 1) {
-            $this->multiBand = true;
+        switch($this->$contract->getTravel()) {
+            case 'MBWT':
+                $this->
         }
     }
+
 }

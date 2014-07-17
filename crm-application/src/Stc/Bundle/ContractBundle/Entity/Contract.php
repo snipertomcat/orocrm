@@ -199,24 +199,15 @@ class Contract extends ExtendContract implements Taggable
     /**
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="updatedBy_id", referencedColumnName="id", onDelete="SET NULL")
-     * @Oro\Versioned("getUpdatedBy")
-     * @JMS\Type("integer")
-     * @JMS\Accessor(getter="getUpdatedById")
-     * @ConfigField(
-     * defaultValues={
-     * "dataaudit"={"auditable"=true},
-     * "email"={"available_in_template"=true}
-     * }
-     * )
      */
     protected $updatedBy;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Stc\Bundle\PerformanceBundle\Entity\Performance", inversedBy="contract")
+    * @ORM\ManyToMany(targetEntity="Stc\Bundle\PerformanceBundle\Entity\Performance")
     * @ORM\JoinTable(
     *     name="stc_contract_to_performance",
-    *     joinColumns={@ORM\JoinColumn(name="contract_id", referencedColumnName="id")},
-    *     inverseJoinColumns={@ORM\JoinColumn(name="performance_id", referencedColumnName="id")}
+    *     joinColumns={@ORM\JoinColumn(name="Contract_id", referencedColumnName="id")},
+    *     inverseJoinColumns={@ORM\JoinColumn(name="Performance_id", referencedColumnName="id")}
     * )
     */
     protected $performance;

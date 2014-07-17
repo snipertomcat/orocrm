@@ -56,7 +56,7 @@ class ContractType extends AbstractType
             ->add(
                 'contractType', 'choice', [
                 'required' => false, 'choices' => [
-                    'single/no travel' => 'Single Band, No Travel', 'single/with travel' => 'Single Band, With Travel', 'multi/no travel' => 'Multi Band, No Travel', 'multi/with travel' => 'Multi Band, With Travel'
+                    'SBNT' => 'Single Band, No Travel', 'SBWT' => 'Single Band, With Travel', 'MBNT' => 'Multi Band, No Travel', 'MBWT' => 'Multi Band, With Travel'
                 ]
                 , 'label' => 'stc.contract.contractType.label'
             ])
@@ -78,12 +78,7 @@ class ContractType extends AbstractType
             ->add(
                 'updatedAt', 'oro_date', [
                 'required' => false, 'label' => 'stc.contract.updatedAt.label'
-            ])
-            ->add(
-                'updatedBy', 'oro_user_select', [
-                'required' => false, 'label' => 'stc.contract.updatedBy.label'
             ]);
-
     }
 
     /**

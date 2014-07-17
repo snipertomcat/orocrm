@@ -40,13 +40,14 @@ class EntityUpdateCommand extends ContainerAwareCommand
                 $this->getApplication(),
                 $this->getContainer()->get('oro_cache.oro_data_cache_manager')
             );
-            $commandExecutor->setDefaultTimeout($input->getOption('timeout'));
+            $commandExecutor->setDefaultTimeout(2500);
 
             $commandExecutor
                 ->runCommand('oro:entity-config:update', ['--env=prod'])
                 ->runCommand('oro:entity-extend:update-config', ['--env=prod'])
                 ->runCommand('oro:entity-extend:update-schema', ['--env=prod'])
-                ->runCommand('doctrine:schema:update', ['--force']);
+                ->runCommand('doctrine:schema:update', ['--force'])
+                ->runCommand('cache:clear', ['--env=prod']);
         } else {
             $output->writeln(
                 '<comment>ATTENTION</comment>: This will run all entity update / schema update commands for production.'

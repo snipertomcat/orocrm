@@ -9,12 +9,10 @@ datagrid:
                     - contract.location
                     - contract.stage
                     - contract.contractType
-                    - contract.performance
                     - contract.isSigned
                     - contract.signedAt
                     - contract.createdAt
                     - contract.updatedAt
-                    - contract.updatedBy
                 from:
                     - { table: StcContractBundle:Contract , alias: contract }
                 where:
@@ -37,10 +35,6 @@ datagrid:
             updatedAt:
                 label: stc.contract.updated_at.label
                 frontend_type: datetime
-            updatedBy:
-                label: stc.contract.updatedBy.label
-            performance:
-                label: stc.performance.entity.label
             signedAt:
                 label: Signed At
                 frontend_type: datetime
