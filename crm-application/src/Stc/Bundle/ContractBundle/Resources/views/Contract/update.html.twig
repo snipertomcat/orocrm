@@ -1,0 +1,76 @@
+{% extends 'OroUIBundle:actions:update.html.twig' %}
+
+{% oro_title_set({params : {"%entity.name%": entity.name, "%entityName%": 'stc.contract.entity.label'|trans }}) %}
+
+{% set entityId = form.vars.value.id %}
+
+{% set formAction = entityId ? path('stc_contract_update', { 'id': entityId}) : path('stc_contract_create') %}
+
+{% block navButtons %}
+    {% if resource_granted('stc_contract_update') %}
+        {{ UI.saveAndStayButton() }}
+    {% endif %}
+    {{ UI.saveAndCloseButton() }}
+{% endblock navButtons %}
+
+{% block pageHeader %}
+    {% if entityId %}
+        {% set breadcrumbs = {
+        'entity': form.vars.value,
+        'indexPath': path('stc_contract_index'),
+        'indexLabel': 'stc.contract.entity_plural_label'|trans,
+        'entityTitle': form.vars.value.name
+        } %}
+        {{ parent() }}
+    {% else %}
+        {% include 'OroUIBundle::page_title_block.html.twig' %}
+    {% endif %}
+{% endblock pageHeader %}
+
+{% block content_data %}
+    {% set id = 'contract-form' %}
+
+    {% set dataBlocks = [{
+    'title': 'stc.contract.block.general'|trans,
+    'class': 'active',
+    'subblocks': [
+    {
+    'title': '',
+    'data': [
+    form_row(form.name),
+    form_row(form.performance),
+    form_row(form.stage),
+    form_row(form.contractType),
+    form_row(form.isSigned),
+    form_row(form.updatedBy),
+    form_row(form.createdAt),
+    form_row(form.updatedAt),
+    form_row(form.signedAt)
+    ]
+    }
+    ]
+    }] %}
+
+    {# This is required to show extended fields #}
+    {% if form.additional is defined and form.additional.children|length > 0 %}
+        {% set additionalData = [] %}
+        {% for value in form.additional %}
+            {% set additionalData = additionalData|merge([form_row(value)]) %}
+        {% endfor %}
+
+        {% set dataBlocks = dataBlocks|merge([{
+        'title': 'stc.contract.block.additional'|trans,
+        'subblocks': [{
+        'title': '',
+        'useSpan': false,
+        'data' : additionalData
+        }]
+        }] ) %}
+    {% endif %}
+
+    {% set data = {
+    'formErrors': form_errors(form)? form_errors(form) : null,
+    'dataBlocks': dataBlocks,
+    } %}
+    {{ parent() }}
+{% endblock content_data %}

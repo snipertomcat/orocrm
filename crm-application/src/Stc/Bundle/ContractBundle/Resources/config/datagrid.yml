@@ -1,0 +1,112 @@
+datagrid:
+    stc_contract_grid:
+        source:
+            type: orm
+            query:
+                select:
+                    - contract.id
+                    - contract.name
+                    - contract.location
+                    - contract.stage
+                    - contract.contractType
+                    - contract.performance
+                    - contract.isSigned
+                    - contract.signedAt
+                    - contract.createdAt
+                    - contract.updatedAt
+                    - contract.updatedBy
+                from:
+                    - { table: StcContractBundle:Contract , alias: contract }
+                where:
+                    and:
+                        - contract.deleted <> 1
+        columns:
+            name:
+                label: Contract Name
+            location:
+                label: Location
+            stage:
+                label: Contract Stage
+            contractType:
+                label: Contract Type
+            isSigned:
+                label: Is Signed
+            createdAt:
+                label: stc.contract.created_at.label
+                frontend_type: datetime
+            updatedAt:
+                label: stc.contract.updated_at.label
+                frontend_type: datetime
+            updatedBy:
+                label: stc.contract.updatedBy.label
+            performance:
+                label: stc.performance.entity.label
+            signedAt:
+                label: Signed At
+                frontend_type: datetime
+        properties:
+            id: ~
+            view_link:
+                type: url
+                route: stc_contract_index
+                params: [ id ]
+            update_link:
+                type: url
+                route: stc_contract_update
+                params: [ id ]
+#            delete_link:
+#                type: url
+#                route: stc_api_delete_contract
+#                params: [ id ]
+        sorters:
+            columns:
+                name:
+                    data_name: contract.name
+                createdAt:
+                    data_name: contract.createdAt
+                updatedAt:
+                    data_name: contract.updatedAt
+                signedAt:
+                    data_name: contract.singedAt
+                isSigned:
+                    data_name: contract.isSigned
+            default:
+                createdAt: DESC
+        filters:
+            columns:
+                name:
+                    type: string
+                    data_name: contract.name
+                isSigned:
+                    type: string
+                    data_name: contract.isSigned
+                signedAt:
+                    type: datetime
+                    data_name: contract.signedAt
+                createdAt:
+                    type: datetime
+                    data_name: contract.createdAt
+                updatedAt:
+                    type: datetime
+                    data_name: contract.updatedAt
+        actions:
+            view:
+                type: navigate
+                label: View Details
+                icon: pencil
+                link: view_link
+                rowAction: true
+                acl_resource: stc_contract_view
+            update:
+                type: navigate
+                label: Update Contract
+                icon: edit
+                link: update_link
+                acl_resource: stc_contract_update
+#            delete:
+#                type: delete
+#                label: Delete Contract
+#                link: delete_link
+#                icon: trash
+#                acl_resource: stc_contract_delete
+#

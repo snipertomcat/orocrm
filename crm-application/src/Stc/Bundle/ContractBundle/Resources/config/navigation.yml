@@ -1,0 +1,18 @@
+oro_menu_config:
+    items:
+        contract_tab:
+            label: Contracts
+            uri: '#'
+        shortcut_contract_item:
+            label: View Contracts
+            route: stc_contract_index
+        shortcut_contract_create:
+            label: Create Contract
+            route: stc_contract_create
+    tree:
+        application_menu:
+            children:
+                contract_tab:
+                    children:
+                        shortcut_contract_item: ~
+                        shortcut_contract_create: ~

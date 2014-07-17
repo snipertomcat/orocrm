@@ -1,0 +1,7 @@
+parameters:
+
+services:
+    stc.command.entity_update_command:
+        class: Stc\Bundle\CommandBundle\Command\EntityUpdateCommand
+        tags:
+            - { name: console.command }

@@ -1,0 +1,15 @@
+{% extends 'OroUIBundle:actions:index.html.twig' %}
+{% import 'OroUIBundle::macros.html.twig' as UI %}
+
+{% set gridName = 'stc_contract_grid' %}
+
+{% set pageTitle = 'stc.contract.entity_plural_label'|trans %}
+
+{% block navButtons %}
+    {% if resource_granted('stc_contract_create') %}
+        {{ UI.addButton({
+        'path' : path('stc_contract_create'),
+        'entity_label': 'stc.contract.entity.label'|trans
+        }) }}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+stc:
+    contract:
+        updatedBy.label: Updated By
+        block.additional: Additional Info
+        block.general: General Info
+        relatedContact.label: Related Contact
+        saved.message: Contract Saved
+        saved_message: Contract Saved Successfully
+        entity.class: contract
+        entity_plural_label: Contracts
+        stc.contract.entity.label: Contract
+        entity.label: Contract
+        assignee.label: Assignee
+        contacts.label: Contacts
+        createdAt.label: Created At
+        deleted.label: Deleted
+        id.label:  ID
+        name.label: Contract Name
+        owner.label: Owner
+        ownership.label: Ownership
+        updated_at.label: Updated At

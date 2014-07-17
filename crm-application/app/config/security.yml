@@ -74,3 +74,4 @@ security:
     access_control:
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/api/rest/(latest|v1)/pinbars, role: ROLE_USER }
+        - { path: ^/documents, role: ROLE_USER }

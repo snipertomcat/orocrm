@@ -1,0 +1,2 @@
+bundles:
+    - { name: Stc\Bundle\ContractBundle\StcContractBundle, priority: 55 }
