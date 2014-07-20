@@ -66,28 +66,14 @@ class ContractHandler
         //set other default field values:
         $entity->setDeleted(0);
 
-        //increase each band's performance count (rating) by 1
-
-        $bands = $entity->getBands();
-        //var_dump($bands);
-        //echo "<pre>".var_dump($_POST);
-        //exit;
-        /*foreach ($bands as $band) {
-            $band->addContractCount();
-        }*/
-
         $this->form->setData($entity);
         $this->form->submit($this->request);
 
-
-        $this->onSuccess($entity);
-        return true;
-
         if ($this->form->isValid()) {
-
-
+            $this->onSuccess($entity);
+            return true;
         } else {
-            exit;
+            return false;
         }
 
         //return false;

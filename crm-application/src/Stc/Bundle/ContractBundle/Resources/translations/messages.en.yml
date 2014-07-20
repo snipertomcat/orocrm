@@ -1,6 +1,10 @@
 stc:
     contract:
+        performance.label: Performance
+        stage.label: Contract Stage
         updatedBy.label: Updated By
+        contractType.label: Contract Type
+        isSigned.label: Signed By Client
         block.additional: Additional Info
         block.general: General Info
         relatedContact.label: Related Contact
@@ -18,4 +22,5 @@ stc:
         name.label: Contract Name
         owner.label: Owner
         ownership.label: Ownership
-        updated_at.label: Updated At
+        updatedAt.label: Updated At
+        signedAt.label: Date Signed

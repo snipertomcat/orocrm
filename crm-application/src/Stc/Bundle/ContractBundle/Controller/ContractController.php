@@ -3,6 +3,7 @@
 namespace Stc\Bundle\ContractBundle\Controller;
 
 use Akeneo\Bundle\BatchBundle\Job\RuntimeErrorException;
+use Stc\Bundle\ContractBundle\Form\Handler\ContractHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

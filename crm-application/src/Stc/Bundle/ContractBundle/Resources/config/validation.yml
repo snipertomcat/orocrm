@@ -1,4 +1,0 @@
-Stc\Bundle\ContractBundle\Entity\Contract:
-    properties:
-        name:
-            - NotBlank: ~

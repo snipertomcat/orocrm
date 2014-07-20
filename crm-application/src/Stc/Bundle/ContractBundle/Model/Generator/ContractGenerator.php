@@ -10,27 +10,15 @@ class ContractGenerator
 
     protected $template;
 
-    protected $multiBand = false;
-
-    protected $travel = false;
-
     public function __construct(Contract $contract)
     {
         $this->contract = $contract;
-        $this->extractDataValues();
+        $this->template = 'StcContractBundle:ContractTemplate:' . $this->contract->getContractType() . '.html.twig';
     }
 
-    private function extractDataValues()
+    protected function generate()
     {
-        $this->travel = $this->contract->getTravel();
-    }
 
-    public function selectTemplate()
-    {
-        switch($this->$contract->getTravel()) {
-            case 'MBWT':
-                $this->
-        }
     }
 
 }
