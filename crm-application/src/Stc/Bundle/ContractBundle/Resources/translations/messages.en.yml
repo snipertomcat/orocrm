@@ -24,3 +24,5 @@ stc:
         ownership.label: Ownership
         updatedAt.label: Updated At
         signedAt.label: Date Signed
+        created_at.label: Created At
+        updated_at.label: Updated At

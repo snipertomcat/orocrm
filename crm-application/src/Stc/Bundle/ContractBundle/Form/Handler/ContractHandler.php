@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Oro\Bundle\TagBundle\Entity\TagManager;
 
 use Stc\Bundle\ContractBundle\Entity\Contract;
+use Stc\Bundle\ContractBundle\Entity\Repository\ContractRepository;
 
 class ContractHandler
 {
@@ -38,6 +39,7 @@ class ContractHandler
         $this->request = $request;
         $this->manager = $manager;
         $this->tagManager = $tagManager;
+        $this->repository = $manager->getRepository('StcContractBundle:Contract');
     }
 
     /**
@@ -62,6 +64,16 @@ class ContractHandler
         if (empty($entity->getLocation())) {
             $entity->setLocation($this->request->getBasePath().'/web/documents');
         }
+
+        if (empty($entity->getSignedAt())) {
+            $entity->setIsSigned(0);
+        }
+
+        //get performance to link to:
+        //$performance_id = $entity->getPerformance()->getId();
+        //create the link in stc_contact_to_performance
+        //$this->repository->insertAssociatedPerformance($entity->getId(), $performance_id);
+
 
         //set other default field values:
         $entity->setDeleted(0);

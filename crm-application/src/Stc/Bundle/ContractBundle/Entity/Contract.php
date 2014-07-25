@@ -185,6 +185,11 @@ class Contract extends ExtendContract implements Taggable
     protected $updatedAt;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Stc\Bundle\PerformanceBundle\Entity\Performance", inversedBy="contracts")
+     */
+    protected $performance;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="assignee_id", referencedColumnName="id", onDelete="SET NULL")
      */
@@ -203,16 +208,6 @@ class Contract extends ExtendContract implements Taggable
     protected $updatedBy;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Stc\Bundle\PerformanceBundle\Entity\Performance")
-    * @ORM\JoinTable(
-    *     name="stc_contract_to_performance",
-    *     joinColumns={@ORM\JoinColumn(name="Contract_id", referencedColumnName="id")},
-    *     inverseJoinColumns={@ORM\JoinColumn(name="Performance_id", referencedColumnName="id")}
-    * )
-    */
-    protected $performance;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(type="boolean", nullable=true)
@@ -225,7 +220,7 @@ class Contract extends ExtendContract implements Taggable
      */
     public function __construct()
     {
-        $this->performance = new ArrayCollection();
+
     }
 
     /**
@@ -250,7 +245,7 @@ class Contract extends ExtendContract implements Taggable
      * Set name
      *
      * @param string $name
-     * @return Contracts
+     * @return Contract
      */
     public function setName($name)
     {
@@ -285,34 +280,11 @@ class Contract extends ExtendContract implements Taggable
         return $this->location;
     }
 
-   /**
-     * Set createdBy
-     *
-     * @param string $createdBy
-     * @return Contracts
-     */
-    public function setCreatedBy($createdBy)
-    {
-        $this->createdBy = $createdBy;
-
-        return $this;
-    }
-
-    /**
-     * Get createdBy
-     *
-     * @return string
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
-
     /**
      * Set deleted
      *
      * @param boolean $deleted
-     * @return Contracts
+     * @return Contract
      */
     public function setDeleted($deleted)
     {
@@ -412,7 +384,7 @@ class Contract extends ExtendContract implements Taggable
 
 
     /**
-     * @return ArrayCollection
+     * @return Performance
      */
     public function getPerformance()
     {
@@ -420,15 +392,15 @@ class Contract extends ExtendContract implements Taggable
     }
 
     /**
-     * @param ArrayCollection $performance
+     * @param Performance $performance
      */
     public function setPerformance($performance)
     {
+        //$this->performance = $performance;
+        //$iterator = $this->performance->getIterator();
+        //foreach ($iterator as $performance) {
         $this->performance = $performance;
-        $iterator = $this->performance->getIterator();
-        foreach ($iterator as $performance) {
-            $this->addPerformance($performance);
-        }
+        //}
     }
 
     public function addPerformance($performance)
@@ -454,6 +426,14 @@ class Contract extends ExtendContract implements Taggable
     }
 
     /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->setCreatedAtValue($createdAt);
+    }
+
+    /**
      * @return \DateTime
      */
     public function getCreatedAt()
@@ -462,11 +442,43 @@ class Contract extends ExtendContract implements Taggable
     }
 
     /**
+     * @param $createdBy
+     */
+    public function setCreatedByValue($createdBy)
+    {
+        $this->createdBy = $createdBy;
+    }
+
+    /**
+     * @param $createdBy
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->setCreatedByValue($createdBy);
+    }
+
+    /**
+     * @return $this
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
      * @param \DateTime $updatedAt
      */
     public function setUpdatedAtValue($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->setUpdatedAtValue($updatedAt);
     }
 
     /**

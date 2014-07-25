@@ -63,10 +63,10 @@ class ContractType extends AbstractType
             ->add(
                 'isSigned', 'choice', [
                 'required' => false, 'choices' => [
-                    'true' => 'Yes',
-                    'false' => 'No'
+                    'Y' => 'Yes',
+                    'N' => 'No'
                 ],
-                'expanded' => false, 'label' => 'stc.contract.isSigned.label'
+                'expanded' => false, 'label' => 'stc.contract.isSigned.label', 'disabled' => true
             ])
             ->add(
                 'signedAt', 'oro_date', [

@@ -3,6 +3,9 @@ parameters:
     stc_contract.contract.entity.class: Stc\Bundle\ContractBundle\Entity\Contract
     stc_contract.form.type.contract.class: Stc\Bundle\ContractBundle\Form\Type\ContractType
     stc_contract.form.handler.class: Stc\Bundle\ContractBundle\Form\Handler\ContractHandler
+    stc_contract.generator.class: Stc\Bundle\ContractBundle\Model\Generator\ContractGenerator
+    stc_contract.generator.variable_model.class: Stc\Bundle\ContractBundle\Model\VariableModel\AbstractVariableModel
+    stc_contract.form.type.contract_customizer.class: Stc\Bundle\ContractBundle\Form\Type\ContractCustomizerType
 
 services:
     stc_contract.form.type.contract:
@@ -26,3 +29,11 @@ services:
         arguments:
             - "stc_contract"
             - "stc_contract"
+    stc_contract.generator:
+        class: %stc_contract.generator.class%
+        arguments:
+            - @twig
+    stc_contract.form.builder.contract_customizer:
+        class: %stc_contract.form.type.contract_customizer.class%
+        tags:
+            - { name: form.type, alias: stc_contract_customizer }

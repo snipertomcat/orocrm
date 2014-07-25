@@ -6,9 +6,13 @@ oro_menu_config:
         shortcut_performance_item:
             label: View Performances
             route: stc_performance_index
+        shortcut_performance_create:
+            label: Create Performance
+            route: stc_performance_create
     tree:
         application_menu:
             children:
                 performance_tab:
                     children:
                         shortcut_performance_item: ~
+                        shortcut_performance_create: ~

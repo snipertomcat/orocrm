@@ -25,6 +25,7 @@ datagrid:
                     - performance.mealsIncluded
                     - performance.performanceFee
                     - performance.budget
+                    - performance.venue
                     - performance.flightBudget
                     - performance.rentalCarBudget
                     - performance.hotelBudget

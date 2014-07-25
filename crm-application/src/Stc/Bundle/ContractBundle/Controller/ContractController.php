@@ -4,6 +4,7 @@ namespace Stc\Bundle\ContractBundle\Controller;
 
 use Akeneo\Bundle\BatchBundle\Job\RuntimeErrorException;
 use Stc\Bundle\ContractBundle\Form\Handler\ContractHandler;
+use Stc\Bundle\ContractBundle\Form\Type\ContractCustomizerType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -17,8 +18,8 @@ use Oro\Bundle\UserBundle\Entity\User;
 use Stc\Bundle\ContractBundle\Entity\Contract;
 
 use Stc\Bundle\ContractBundle\Form\Type\ContractType;
-
-
+use Stc\Bundle\ContractBundle\Form\Builder\ContractCustomizerBuilder;
+use Symfony\Component\HttpFoundation\Response;
 /**
  * @Route("/contract")
  */
@@ -130,6 +131,7 @@ class ContractController extends Controller
 
         $contract->setCreatedBy($username);
         $contract->setOwner($user);
+        $contract->setUpdatedAt(new \DateTime('now'));
 
         return $this->update($contract);
     }
@@ -167,6 +169,8 @@ class ContractController extends Controller
                     $this->get('translator')->trans('stc.contract.saved_message')
                 );
 
+                //return $this->generate($contract);
+
                 return $this->get('oro_ui.router')->actionRedirect(
                     array(
                         'route' => 'stc_contract_update',
@@ -187,5 +191,59 @@ class ContractController extends Controller
             'entity' => $contract,
             'form' => $form->createView(),
         );
+    }
+
+    /**
+     * @Route("/generate/{contract_id}",name="stc_contract_generate")
+     */
+    public function generate()
+    {
+
+        $contract_id = $this->getRequest()->get('contract_id');
+        $contractRepository = $this->getDoctrine()->getManager()->getRepository('StcContractBundle:Contract');
+        $contract = $contractRepository->find($contract_id);
+
+        $contractGenerator = $this->get('stc_contract.generator');
+        $contractGenerator->setContract($contract);
+
+        $resultArray = $contractGenerator->generate();
+//print_r($resultArray);exit;
+        $template = $contractGenerator->getRenderedTemplate();
+
+        $form = $this->createForm(new ContractCustomizerType(), $resultArray);
+
+        $response = new Response($template, 200);
+
+        return $response->send();
+
+
+        if ('POST' == $this->getRequest()->getMethod()) {
+            if ($formHandler->handle($contract)) {
+                $this->get('session')->getFlashBag()->add(
+                    'success',
+                    $this->get('translator')->trans('stc.contract.saved_message')
+                );
+
+                return $this->get('oro_ui.router')->actionRedirect(
+                    array(
+                        'route' => 'stc_contract_update',
+                        'parameters' => array('id' => $contract->getId()),
+                    ),
+                    array(
+                        'route' => 'stc_contract_view',
+                        'parameters' => array('id' => $contract->getId()),
+                    )
+                );
+            } else {
+                $error = $form->getErrorsAsString(0);
+                throw new RuntimeErrorException($error);
+            }
+        }
+
+        return array(
+            'contract_html' => $template,
+            'form' => $form->createView()
+        );
+
     }
 }

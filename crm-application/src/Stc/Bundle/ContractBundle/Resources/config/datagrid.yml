@@ -42,7 +42,7 @@ datagrid:
             id: ~
             view_link:
                 type: url
-                route: stc_contract_index
+                route: stc_contract_update
                 params: [ id ]
             update_link:
                 type: url
@@ -90,13 +90,11 @@ datagrid:
                 icon: pencil
                 link: view_link
                 rowAction: true
-                acl_resource: stc_contract_view
             update:
                 type: navigate
                 label: Update Contract
                 icon: edit
                 link: update_link
-                acl_resource: stc_contract_update
 #            delete:
 #                type: delete
 #                label: Delete Contract

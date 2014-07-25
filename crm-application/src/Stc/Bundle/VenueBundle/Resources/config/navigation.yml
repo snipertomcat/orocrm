@@ -6,9 +6,13 @@ oro_menu_config:
         shortcut_venue_item:
             label: View Venues
             route: stc_venue_index
+        shortcut_venue_create:
+            label: Create Venue
+            route: stc_venue_create
     tree:
         application_menu:
             children:
                 venue_tab:
                     children:
                         shortcut_venue_item: ~
+                        shortcut_venue_create: ~
