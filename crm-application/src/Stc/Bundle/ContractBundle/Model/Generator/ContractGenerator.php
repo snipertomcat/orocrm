@@ -54,6 +54,7 @@ class ContractGenerator
             }
 
             $bands = $performance->getBands();
+            //print_r($bands->current());exit;
 
             if ($multiBand) {
                 //select correct bands - display sub-form?
@@ -69,6 +70,7 @@ class ContractGenerator
                 $page_data['band_email'] = ' ';
             }
             $venue = $performance->getVenue();
+
             $page_data['venue_name'] = $venue->getName();
             //$page_data['venue_contact_name'] = $venue->getContacts();
             $page_data['venue_contact_name'] = ' ';

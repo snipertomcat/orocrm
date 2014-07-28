@@ -18,6 +18,7 @@ stc:
         billingAddressCountry.label: Billing Address Country
         contacts.label: Contacts
         createdAt.label: Created At
+        created_at.label: Created At
         deleted.label: Deleted
         description.label: Description
         employees.label: Employees

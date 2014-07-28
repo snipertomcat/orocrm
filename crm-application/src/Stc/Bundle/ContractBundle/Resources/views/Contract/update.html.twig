@@ -11,6 +11,11 @@
         {{ UI.saveAndStayButton() }}
     {% endif %}
     {{ UI.saveAndCloseButton() }}
+    <div class="btn-group">
+        {% if entityId is not null %}
+            <a href="{{ path('stc_contract_generate', {'contract_id': entityId}) }}"><button class="btn btn-success main-group action-button" type="button">Generate</button></a>
+        {% endif %}
+    </div>
 {% endblock navButtons %}
 
 {% block pageHeader %}

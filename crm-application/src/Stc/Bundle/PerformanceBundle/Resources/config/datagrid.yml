@@ -14,6 +14,7 @@ datagrid:
                     - performance.status
                     - performance.leadSource
                     - performance.amount
+                    - performance.venue
                     - performance.closedAt
                     - performance.nextStep
                     - performance.salesStage
@@ -25,7 +26,6 @@ datagrid:
                     - performance.mealsIncluded
                     - performance.performanceFee
                     - performance.budget
-                    - performance.venue
                     - performance.flightBudget
                     - performance.rentalCarBudget
                     - performance.hotelBudget

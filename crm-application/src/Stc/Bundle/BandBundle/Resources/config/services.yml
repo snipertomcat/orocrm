@@ -1,7 +1,7 @@
 parameters:
     stc_band.entity.class: Stc\Bundle\BandBundle\Entity\Band
     stc_band.band.entity.class: Stc\Bundle\BandBundle\Entity\Band
-    stc_band.form.type.band.class: \Stc\Bundle\BandBundle\Form\Type\BandType
+    stc_band.form.type.band.class: Stc\Bundle\BandBundle\Form\Type\BandType
     stc_band.importexport.import.form.model.class: Stc\Bundle\BandBundle\Form\Model\ImportData
 
 services:

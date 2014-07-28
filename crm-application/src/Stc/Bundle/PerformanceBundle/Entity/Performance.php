@@ -133,8 +133,7 @@ class Performance extends ExtendPerformance implements Taggable
     private $probability;
 
     /**
-     * @ORM\OneToOne(targetEntity="Stc\Bundle\VenueBundle\Entity\Venue", mappedBy="id")
-     * @ORM\JoinColumn(name="venue_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Stc\Bundle\VenueBundle\Entity\Venue")
      */
     private $venue;
 
