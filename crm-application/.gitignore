@@ -25,3 +25,4 @@ build/
 old
 cache
 /update-entity-config.sh
+/src/Stc/Bundle/ContractBundle/Resources/public/img/*.jpg
