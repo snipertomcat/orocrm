@@ -1,0 +1,28 @@
+stc:
+    map:
+        performance.label: Performance
+        stage.label: Map Stage
+        updatedBy.label: Updated By
+        mapType.label: Map Type
+        isSigned.label: Signed By Client
+        block.additional: Additional Info
+        block.general: General Info
+        relatedContact.label: Related Contact
+        saved.message: Map Saved
+        saved_message: Map Saved Successfully
+        entity.class: map
+        entity_plural_label: Maps
+        stc.map.entity.label: Map
+        entity.label: Map
+        assignee.label: Assignee
+        contacts.label: Contacts
+        createdAt.label: Created At
+        deleted.label: Deleted
+        id.label:  ID
+        name.label: Map Name
+        owner.label: Owner
+        ownership.label: Ownership
+        updatedAt.label: Updated At
+        signedAt.label: Date Signed
+        created_at.label: Created At
+        updated_at.label: Updated At
