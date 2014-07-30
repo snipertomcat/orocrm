@@ -1,0 +1,12 @@
+{% extends 'OroUIBundle:actions:index.html.twig' %}
+{% import 'OroUIBundle::macros.html.twig' as UI %}
+
+{% block body %}
+    Latitude: {{ location.latitude }} - Longitude: {{ location.longitude }}
+
+    {{ form_start(form) }}
+        {{ form_row(form.location) }}
+        {{ form_rest(form) }}
+    <button type="submit">Submit</button>
+    {{ form_end(form) }}
+{% endblock %}

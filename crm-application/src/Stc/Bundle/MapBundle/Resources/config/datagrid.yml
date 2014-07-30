@@ -1,0 +1,98 @@
+datagrid:
+    stc_map_grid:
+        source:
+            type: orm
+            query:
+                select:
+                    - map.id
+                    - map.name
+                    - map.mapType
+                    - map.owner
+                    - map.deleted
+                    - map.coordinate
+                    - map.createdAt
+                    - map.updatedAt
+                from:
+                    - { table: StcMapBundle:Map , alias: map }
+                where:
+                    and:
+                        - map.deleted <> 1
+        columns:
+            name:
+                label: Map Name
+            mapType:
+                label: Map Type
+            owner:
+                label: Created By
+            deleted:
+                label: Deleted
+            coordinate:
+                label: Coordinate
+            createdAt:
+                label: stc.map.created_at.label
+                frontend_type: datetime
+            updatedAt:
+                label: stc.map.updated_at.label
+                frontend_type: datetime
+        properties:
+            id: ~
+            view_link:
+                type: url
+                route: stc_map_update
+                params: [ id ]
+            update_link:
+                type: url
+                route: stc_map_update
+                params: [ id ]
+#            delete_link:
+#                type: url
+#                route: stc_api_delete_map
+#                params: [ id ]
+            generate_link:
+                type: url
+                route: stc_map_map
+                params: [ id ]
+        sorters:
+            columns:
+                name:
+                    data_name: map.name
+                createdAt:
+                    data_name: map.createdAt
+                updatedAt:
+                    data_name: map.updatedAt
+            default:
+                createdAt: DESC
+        filters:
+            columns:
+                name:
+                    type: string
+                    data_name: map.name
+                createdAt:
+                    type: datetime
+                    data_name: map.createdAt
+                updatedAt:
+                    type: datetime
+                    data_name: map.updatedAt
+        actions:
+            view:
+                type: navigate
+                label: View Details
+                icon: pencil
+                link: view_link
+                rowAction: true
+            update:
+                type: navigate
+                label: Update Map
+                icon: edit
+                link: update_link
+#            delete:
+#                type: delete
+#                label: Delete Map
+#                link: delete_link
+#                icon: trash
+#                acl_resource: stc_map_delete
+            generate:
+                type: navigate
+                label: Generate Map
+                icon: globe
+                link:  generate_link

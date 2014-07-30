@@ -31,9 +31,9 @@ framework:
 twig:
     debug:                    "%kernel.debug%"
     strict_variables:         "%kernel.debug%"
-#    form:
-#        resources:
-#            - 'StcBandBundle:Band/widget:info.html.twig'
+    form:
+        resources:
+            - 'StcMapBundle:Form:widgets.html.twig'
     exception_controller:     "FOS\RestBundle\Controller\ExceptionController::showAction"
     globals:
         bap:
@@ -248,3 +248,4 @@ oro_help:
 
 oro_theme:
     active_theme: oro
+
