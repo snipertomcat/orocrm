@@ -1,0 +1,35 @@
+parameters:
+    stc_map.entity.class: Stc\Bundle\MapBundle\Entity\Map
+    stc_map.map.entity.class: Stc\Bundle\MapBundle\Entity\Map
+    stc_map.form.type.map.class: Stc\Bundle\MapBundle\Form\Type\MapType
+    stc_map.form.handler.class: Stc\Bundle\MapBundle\Form\Handler\MapHandler
+    stc_map.generator.class: Stc\Bundle\MapBundle\Model\Generator\MapGenerator
+    stc_map.form.type.coordinate.class: Stc\Bundle\MapBundle\Form\Type\CoordinateType
+
+services:
+    stc_map.form.type.map:
+        class: %stc_map.form.type.map.class%
+        arguments:
+            - %stc_map.entity.class%
+        tags:
+            - { name: form.type, alias: stc_map }
+    stc_map.form.type.coordinate:
+        class: %stc_map.form.type.coordinate.class%
+        scope: prototype
+        tags:
+            - { name: form.type, alias: stc_coordinate}
+    stc_map.form.handler:
+        class: %stc_map.form.handler.class%
+        scope: request
+        arguments:
+            - @stc_map.form
+            - @request
+            - @doctrine.orm.entity_manager
+            - @oro_tag.tag.manager
+    stc_map.form:
+        class: Symfony\Component\Form\Form
+        factory_method: createNamed
+        factory_service: form.factory
+        arguments:
+            - "stc_map"
+            - "stc_map"
